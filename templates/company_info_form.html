@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>İşyeri Bilgileri</title>
+</head>
+<body>
+    <h1>İşyeri Bilgileri</h1>
+    {% with messages = get_flashed_messages() %}
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endwith %}
+    <form method="POST" action="{{ url_for('company_info_form') }}">
+        <h2>İşletmenin Bilgileri</h2>
+        <label for="company_name">Ünvanı/Adı:</label>
+        <input type="text" id="company_name" name="company_name" required><br><br>
+        
+        <label for="company_address">Adresi:</label>
+        <input type="text" id="company_address" name="company_address" required><br><br>
+        
+        <label for="company_phone">Telefon Numarası:</label>
+        <input type="tel" id="company_phone" name="company_phone" required><br><br>
+        
+        <label for="company_email">E-Posta Adresi:</label>
+        <input type="email" id="company_email" name="company_email" required><br><br>
+        
+        <label for="tax_number">Vergi Numarası:</label>
+        <input type="text" id="tax_number" name="tax_number" required><br><br>
+        
+        <label for="sgk_registry_number">SGK Sicil Numarası:</label>
+        <input type="text" id="sgk_registry_number" name="sgk_registry_number" required><br><br>
+        
+        <label for="sgk_employee_count">SGK'lı Personel Sayısı:</label>
+        <input type="number" id="sgk_employee_count" name="sgk_employee_count" required><br><br>
+        
+        <label for="bank_name">Banka Adı:</label>
+        <input type="text" id="bank_name" name="bank_name" required><br><br>
+        
+        <label for="branch_name">Şube Adı:</label>
+        <input type="text" id="branch_name" name="branch_name" required><br><br>
+        
+        <label for="iban_number">IBAN Numarası:</label>
+        <input type="text" id="iban_number" name="iban_number" required><br><br>
+        
+        <h2>İşletme Temsilcisinin Bilgileri</h2>
+        <label for="representative_name">Adı Soyadı:</label>
+        <input type="text" id="representative_name" name="representative_name" required><br><br>
+        
+        <label for="representative_tc">TC Numarası:</label>
+        <input type="text" id="representative_tc" name="representative_tc" required><br><br>
+        
+        <label for="representative_title">Görevi / Ünvanı:</label>
+        <input type="text" id="representative_title" name="representative_title" required><br><br>
+        
+        <input type="submit" value="Devam">
+    </form>
+</body>
+</html>

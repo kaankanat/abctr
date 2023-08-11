@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <div class="button-container">
+            <img src="{{ url_for('static', filename='motto.jpeg') }}" alt="Slogan" class="motto-image">
+            <div class="button-caption">
+                <p class="caption">MESLEKİ EĞİTİM İÇİN BAŞVUR</p>
+                <a href="{{ url_for('sayfa1') }}" class="button-link">
+                    <img src="{{ url_for('static', filename='button.jpeg') }}" alt="Create" class="button-image">
+                </a>
+            </div>
+        </div>
+    </div>
+</body>
+</html>

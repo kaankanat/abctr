@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>ÖN BİLGİLER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        <h1>ÖN BİLGİLER</h1>
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
+        <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('duzenle2', id=person_data.id) }}">
+            <input type="hidden" name="person_id" value="{{ person_data.id }}">
+            <div class="form-group">
+                <label for="name">Adı:</label>
+                <input type="text" id="name" name="name" required value="{{ person_data.name }}">
+            </div>            
+            
+            <div class="form-group">
+                <label for="surname">Soyadı:</label>
+                <input type="text" id="surname" name="surname" required value="{{ person_data.surname }}">
+            </div>            
+            
+            <div class="form-group">
+                <label for="TCNo">TC Kimlik Numarası:</label>
+                <input type="text" id="TCNo" name="TCNo" required maxlength="11" oninput="checkTCLength(this)">
+                <span id="warning" style="color: red; display: none;">TC Kimlik Numarası 11 rakamdan oluşmalıdır. Lütfen girdiğiniz TC Kimlik Numarasını kontrol ediniz.</span>
+            </div>
+
+            <div class="form-group">
+                <label for="birth_date">Doğum Tarihi (Gün/Ay/Yıl):</label>
+                <input type="date" id="birth_date" name="birth_date" required value="{{ person_data.birth_date }}">
+            </div>                     
+
+            <div class="form-group">
+                <label for="photo">Fotoğraf Ekle:</label>
+                <input type="file" id="photo" name="photo" accept="image/*">
+            </div>
+            <div class="button-container">
+                <input type="submit" value="İleri" class="button primary-button">
+                <a href="{{ url_for('anasayfa') }}" class="button cancel-button">Vazgeç</a>
+            </div>                 
+        </form>
+    </div>
+    <script>
+        function validateForm() {
+            const warningMsg = document.getElementById('warning');
+            const tcInput = document.getElementById('TCNo');
+            const tcLength = tcInput.value.length;
+    
+            if (tcLength !== 11) {
+                warningMsg.style.display = 'inline';
+                return false;
+            } else {
+                warningMsg.style.display = 'none';
+            }
+    
+            const form = document.getElementById('editForm');
+            form.submit();
+    
+            return true;
+        }
+    
+        window.onload = function () {
+            const tcInput = document.getElementById('TCNo');
+            tcInput.addEventListener('input', function () {
+                checkTCLength(this);
+            });
+        };
+    </script>  
+</body>
+</html>
