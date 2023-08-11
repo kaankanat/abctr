@@ -1,0 +1,62 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kişi Listesi</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    <div class="container">
+        {% with messages = get_flashed_messages() %}
+        {% if messages %}
+        <ul class="flash-messages">
+            {% for message in messages %}
+            <li>{{ message }}</li>
+            {% endfor %}
+        </ul>
+        {% endif %}
+        {% endwith %}
+
+        <h1>Kişi Listesi</h1>
+        <div class="person-table-container">
+            <table class="person-table">
+                <tr>
+                    <th>Adı</th>
+                    <th>Soyadı</th>
+                    <th>TC Kimlik No</th>
+                    <th>Baba Adı</th>
+                    <th>Anne Adı</th>
+                    <th>Doğum Yeri</th>
+                    <th>Telefon Numarası</th>
+                    <th>İkamet Adresi</th>
+                    <th>Mezuniyet Durumu</th>
+                    <th>Kurum Adı</th>
+                    <th>Mesleki Alan</th>
+                    <th>Mesleki Dal</th>
+                    <th>Doğum Tarihi</th>
+                    <th>Düzenle</th>
+                    <th>Sil</th>
+                </tr>
+                {% for person in people %}
+                <tr>
+                    <td>{{ person.name }}</td>
+                    <td>{{ person.surname }}</td>
+                    <td>{{ person.TCNo }}</td>
+                    <td>{{ person.father_name }}</td>
+                    <td>{{ person.mother_name }}</td>
+                    <td>{{ person.birthplace }}</td>
+                    <td>{{ person.phone_number }}</td>
+                    <td>{{ person.address }}</td>
+                    <td>{{ person.graduation_status }}</td>
+                    <td>{{ person.institution }}</td>
+                    <td>{{ person.field }}</td>
+                    <td>{{ person.dal }}</td>
+                    <td>{{ person.birth_date }}</td>
+                    <td><a href="{{ url_for('duzenle1', id=person.id) }}" class="edit-link">Düzenle</a></td>
+                    <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td> 
+                </tr>
+                {% endfor %}
+            </table>
+        </div>
+    </div>
+</body>
+</html>

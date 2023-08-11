@@ -1,0 +1,242 @@
+/* style.css */
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+    background-color: #f0f0f0;
+}
+
+.container {
+    max-width: 1200px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: #fff;
+    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+}
+
+.flash-messages {
+    list-style-type: none;
+    padding: 0;
+    margin-bottom: 20px;
+}
+
+.flash-messages li {
+    color: #f00;
+}
+
+.error-message {
+    color: #f00;
+}
+
+h1 {
+    margin-bottom: 20px;
+}
+
+table.person-table {
+    width: 100%;
+    border-collapse: collapse;
+    min-width: 800px;
+}
+
+.person-table-container {
+    overflow-x: auto;
+}
+
+table.person-table th,
+table.person-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+}
+
+table.person-table th {
+    background-color: #f0f0f0;
+}
+
+.edit-delete-buttons {
+    display: flex;
+    flex-direction: row;
+    align-items: flex-start;
+    margin-top: 5px;
+}
+
+.edit-link,
+.delete-link {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+    width: 70px;
+}
+
+.edit-link:hover,
+.delete-link:hover {
+    text-decoration: underline;
+    background-color: #f0f0f0;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
+}
+
+.edit-link,
+.delete-link {
+    color: #007bff;
+    text-decoration: none;
+    padding: 5px 10px;
+    border-radius: 5px;
+    margin-right: 5px;
+    margin-bottom: 5px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    transition: background-color 0.3s, box-shadow 0.3s;
+}
+
+.edit-link {
+    background-color: #4CAF50;
+    color: white;
+    margin-right: 5px;
+}
+
+.delete-link {
+    background-color: #f00;
+    color: #fff;
+}
+
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+.button {
+    background-color: #4CAF50;
+    color: white;
+    padding: 10px 15px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    width: 120px;
+    margin-right: 10px;
+}
+
+.cancel-button {
+    background-color: #f44336;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    text-decoration: none;
+    font-size: 14px;
+}
+
+.form-group {
+    margin-bottom: 15px;
+}
+
+.button-center {
+    display: flex;
+    justify-content: center;
+}
+
+.yeni-ekle-button {
+    background-color: #007bff;
+    color: white;
+    padding: 15px 30px;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    text-decoration: none;
+    font-size: 24px;
+    display: inline-block;
+    transition: background-color 0.3s;
+    margin-top: 40px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+.yeni-ekle-button:hover {
+    background-color: #0056b3;
+    text-decoration: none;
+}
+
+.cell-wrapper {
+    max-width: 200px;
+    overflow: hidden;
+    text-overflow: ellipsis;
+}
+
+table.person-table th,
+table.person-table td {
+    padding: 10px;
+    text-align: left;
+    border-bottom: 1px solid #ccc;
+    white-space: nowrap;
+}
+
+.form-group {
+    margin-bottom: 15px;
+    display: flex;
+    align-items: center;
+}
+
+.form-group label {
+    margin-right: 10px;
+}
+
+.form-group select {
+    margin-right: 10px;
+}
+
+.form-group .error-message {
+    color: red;
+    display: none;
+}
+
+.error {
+    border-color: red;
+}
+  
+.error-message {
+    display: block;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.error-message-dal {
+    display: block;
+    color: red;
+    font-size: 14px;
+    margin-top: 5px;
+}
+
+.motto-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 35%; 
+    margin-top: 20px; 
+}
+
+.button-image {
+    display: block;
+    margin: 0 auto;
+    max-width: 15%; 
+    margin-top: 10px; 
+}
+
+.button-container {
+    text-align: center;
+    margin-top: 30px; 
+    position: relative; 
+}
+
+.caption {
+    font-size: 18px;
+    font-weight: bold;
+    font-family: Arial, sans-serif; 
+    color: #0047ab;
+    margin-bottom: 20px; 
+}

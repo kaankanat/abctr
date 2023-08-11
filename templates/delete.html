@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Kişiyi Sil</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+</head>
+<body>
+    {% with messages = get_flashed_messages() %}
+    {% if messages %}
+    <ul>
+        {% for message in messages %}
+        <li>{{ message }}</li>
+        {% endfor %}
+    </ul>
+    {% endif %}
+    {% endwith %}
+
+    <div class="container">
+        <h1>Kişiyi Sil</h1>
+        <p>Kişiyi silmek istediğinize emin misiniz?</p>
+        <form method="POST">
+            <div class="form-group">
+                <button class="button delete-link" type="submit" name="confirm" value="yes">Evet</button>
+                <button class="button cancel-button" type="submit" name="confirm" value="no">Hayır</button>
+            </div>
+        </form>
+    </div>
+</body>
+</html>
