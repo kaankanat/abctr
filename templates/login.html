@@ -2,6 +2,7 @@
 <html>
 <head>
     <title>Giriş</title>
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
     <h1>Giriş</h1>
@@ -20,8 +21,12 @@
         
         <label for="password">Şifre:</label>
         <input type="password" id="password" name="password" required><br><br>
+
+        {% if error_message %}
+            <p class="error-message">{{ error_message }}</p>
+        {% endif %}
         
         <button type="submit">Login</button>
-</form>
+    </form>
 </body>
 </html>

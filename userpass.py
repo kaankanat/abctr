@@ -13,7 +13,6 @@ def create_users():
             existing_user = User.query.filter_by(username=user_data['username']).first()
             if not existing_user:
                 hashed_password = generate_password_hash(user_data['password'])
-                print(f"Hashed password for {user_data['username']}: {hashed_password}")  # Add this line
                 new_user = User(username=user_data['username'], password=hashed_password)
                 db.session.add(new_user)
         db.session.commit()

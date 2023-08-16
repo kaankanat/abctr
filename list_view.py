@@ -57,7 +57,6 @@ def duzenle1(id):
 
 @app.route('/duzenle2', methods=['POST'])
 def duzenle2():
-    print("Form data in duzenle2:", request.form)
     person_id = request.form['person_id']
     person = Person.query.get(person_id)
     if not person:

@@ -25,10 +25,6 @@ body {
     color: #f00;
 }
 
-.error-message {
-    color: #f00;
-}
-
 h1 {
     margin-bottom: 20px;
 }
@@ -188,11 +184,6 @@ table.person-table td {
 
 .form-group select {
     margin-right: 10px;
-}
-
-.form-group .error-message {
-    color: red;
-    display: none;
 }
 
 .error {

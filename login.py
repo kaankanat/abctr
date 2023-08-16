@@ -7,7 +7,7 @@ from userpass import create_users
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
-app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///company.db'
+app.config['SQLALCHEMY_DATABASE_URI'] = 'sqlite:///person.db'
 db.init_app(app)
 migrate = Migrate(app, db)
 with app.app_context():
@@ -30,16 +30,13 @@ def login():
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
-
         user = User.query.filter_by(username=username).first()
-        if user:
-            if check_password_hash(user.password, password):
-                session['user_id'] = user.id
-                return redirect(url_for('company_info_form'))
-            else:
-                error_message = 'Yanlış Kullanıcı Adı veya Şifre'
+
+        if user and check_password_hash(user.password, password):
+            session['user_id'] = user.id
+            return redirect(url_for('company_info_form'))
         else:
-            error_message = 'Kullanıcı bulunamadı'
+            error_message = 'Yanlış Kullanıcı Adı veya Şifre'
 
     return render_template('login.html', error_message=error_message)
 
