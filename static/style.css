@@ -15,6 +15,39 @@ body {
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
 }
 
+.header {
+    background-color: #000080	 ;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: 0;
+      
+}
+.logo img {
+    max-width: 200px; 
+}
+ ul {
+    list-style: none;
+    padding: 0;
+}
+
+nav ul li {
+    display: inline;
+    margin-right: 20px;
+}
+
+nav ul li a {
+    text-decoration: none;
+    color: #fff;
+}
+.footer {
+    background-color: #000080		;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
 .flash-messages {
     list-style-type: none;
     padding: 0;
@@ -22,6 +55,10 @@ body {
 }
 
 .flash-messages li {
+    color: #f00;
+}
+
+.error-message {
     color: #f00;
 }
 
@@ -184,6 +221,11 @@ table.person-table td {
 
 .form-group select {
     margin-right: 10px;
+}
+
+.form-group .error-message {
+    color: red;
+    display: none;
 }
 
 .error {

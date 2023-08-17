@@ -4,6 +4,21 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+        </div>
+       
+        <h5>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</h5>
+        <nav>
+            <ul>
+                <li><a href="#">Ana Sayfa</a></li>
+                <li><a href="#">Hakkımızda</a></li>
+                <li><a href="#">Hizmetler</a></li>
+                <li><a href="#">İletişim</a></li>
+            </ul>
+        </nav>
+    </header>
     <div class="container">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -25,5 +40,8 @@
             </div>
         </div>
     </div>
+    <footer class="footer">
+        <p>abctronline.com</p>
+    </footer>
 </body>
 </html>
