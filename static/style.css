@@ -8,13 +8,49 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color:#000080;
+    border-radius: 4px;;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    
 }
 
+.index{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.header {
+    background-color: #000080	 ;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: 0;
+      
+}
+.logo img {
+    max-width: 200px; 
+}
+
+.footer {
+    background-color: #000080		;
+    color: #fff;
+    text-align: center;
+    padding: 20px;
+}
 .flash-messages {
     list-style-type: none;
     padding: 0;
@@ -22,6 +58,10 @@ body {
 }
 
 .flash-messages li {
+    color: #f00;
+}
+
+.error-message {
     color: #f00;
 }
 
@@ -37,6 +77,7 @@ table.person-table {
 
 .person-table-container {
     overflow-x: auto;
+    width: 90%;
 }
 
 table.person-table th,
@@ -173,17 +214,31 @@ table.person-table td {
 }
 
 .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
+    margin-bottom: 1rem;
+
 }
 
 .form-group label {
-    margin-right: 10px;
+    display: block;
+    font-weight: lighter;
+    margin-bottom: 0.5rem;
+    
 }
 
-.form-group select {
-    margin-right: 10px;
+.form-group input,select {
+    background-color:white;
+    width: 80%;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 1rem;
+}
+
+.form-group .error-message {
+    color: red;
+    display: none;
 }
 
 .error {

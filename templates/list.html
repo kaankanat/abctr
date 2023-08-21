@@ -5,7 +5,15 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
-    <div class="container">
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+        </div>
+       
+        <h5>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</h5>
+       
+    </header>
+    <div class="index">
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul class="flash-messages">
@@ -59,4 +67,7 @@
         </div>
     </div>
 </body>
+<footer class="footer">
+    <p>abctronline.com</p>
+</footer>
 </html>
