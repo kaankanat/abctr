@@ -1,8 +1,8 @@
 from werkzeug.security import generate_password_hash
 from models import db, User
-from app import app
+from flask import current_app
 
-def create_users():
+def create_users(app):
     users = [
         {'username': 'abc', 'password': '123'},
         {'username': 'admin', 'password': 'admin'},
@@ -18,4 +18,5 @@ def create_users():
         db.session.commit()
 
 if __name__ == '__main__':
-    create_users()
+    from app import app
+    create_users(app)

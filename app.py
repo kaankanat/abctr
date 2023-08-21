@@ -15,16 +15,9 @@ migrate = Migrate(app, db)
 with app.app_context():
     db.create_all()
 
-create_users()
-
 @app.route('/get_main_to_sub_categories', methods=['GET'])
 def get_main_to_sub_categories():
     return jsonify(main_to_sub_categories)
-
-@app.route('/')
-def index():
-    success_message = request.args.get('success_message')
-    return render_template('login.html', success_message=success_message)
 
 @app.route('/dashboard')
 def dashboard():
@@ -177,18 +170,12 @@ def sayfa2():
 
     return render_template('create2.html', error_message=error_message, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
 
-@app.route('/list')
-def list():
-    people = Person.query.all()
-    return render_template('list.html', people=people)
-
-
-@app.route('/duzenle1/<int:id>', methods=['GET', 'POST'])
-def duzenle1(id):
+@app.route('/duzenle1/<string:tcno>', methods=['GET', 'POST'])
+def duzenle1(tcno):
     error_message = ""
     person_data = session.get('edit1_data', {})
 
-    person = Person.query.get(id)
+    person = Person.query.filter_by(TCNo=tcno).first()
     if request.method == 'POST':
         name = request.form['name']
         surname = request.form['surname']
@@ -215,38 +202,52 @@ def duzenle1(id):
         session['edit1_data'] = person_data
         session.modified = True
 
-        return redirect(url_for('duzenle2', id=id))
-
+        return redirect(url_for('duzenle2', tcno=TCNo))
+    
     return render_template('edit1.html', error_message=error_message, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
 
-@app.route('/duzenle2', methods=['POST'])
-def duzenle2():
-    person_id = request.form['person_id']
-    person = Person.query.get(person_id)
+@app.route('/duzenle2/<string:tcno>', methods=['GET', 'POST'])
+def duzenle2(tcno):
+    person = Person.query.filter_by(TCNo=tcno).first()
+
     if not person:
         flash('Kişi bulunamadı.', 'error')
         return redirect(url_for('list'))
 
-    person.father_name = request.form.get('father_name', person.father_name)
-    person.mother_name = request.form.get('mother_name', person.mother_name)
-    person.birthplace = request.form.get('birthplace', person.birthplace)
-    person.phone_number = request.form.get('phone_number', person.phone_number)
-    person.address = request.form.get('address', person.address)
-    person.graduation_status = request.form.get('graduation_status', person.graduation_status)
-    person.institution = request.form.get('institution', person.institution)
-    person.field = request.form.get('field', person.field)
-    person.dal = request.form.get('dal', person.dal)
-    
-    try:
-        if 'birth_date' in request.form:
-            person.birth_date = datetime.strptime(request.form['birth_date'], '%Y-%m-%d')
-        db.session.commit()
-        flash('Kişi Başarıyla Düzenlendi.', 'success')
-    except IntegrityError as e:
-        db.session.rollback()
-        flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
+    if request.method == 'POST':
+        tcno = request.form['TCNo']
+        person.father_name = request.form.get('father_name', person.father_name)
+        person.mother_name = request.form.get('mother_name', person.mother_name)
+        person.birthplace = request.form.get('birthplace', person.birthplace)
+        person.phone_number = request.form.get('phone_number', person.phone_number)
+        person.address = request.form.get('address', person.address)
+        person.graduation_status = request.form.get('graduation_status', person.graduation_status)
+        person.institution = request.form.get('institution', person.institution)
+        person.field = request.form.get('field', person.field)
+        person.dal = request.form.get('dal', person.dal)
 
-    return redirect(url_for('list'))
+        try:
+            if 'birth_date' in request.form:
+                person.birth_date = datetime.strptime(request.form['birth_date'], '%Y-%m-%d')
+            db.session.commit()
+            flash('Kişi Başarıyla Düzenlendi.', 'success')
+        except IntegrityError as e:
+            db.session.rollback()
+            flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
+
+        return redirect(url_for('list'))
+
+    return render_template('edit2.html', person=person)
+
+@app.route('/')
+def index():
+    success_message = request.args.get('success_message')
+    return render_template('login.html', success_message=success_message)
+
+@app.route('/list')
+def list():
+    people = Person.query.all()
+    return render_template('list.html', people=people)
 
 @app.route('/sil/<int:id>', methods=['GET', 'POST'])
 def sil(id):
@@ -262,3 +263,6 @@ def sil(id):
     return render_template('delete.html', person=person)
 if __name__ == '__main__':
     app.run(debug=True)
+
+from userpass import create_users
+create_users()

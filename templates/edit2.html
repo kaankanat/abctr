@@ -12,7 +12,8 @@
         {% if error_message %}
         <p class="error-message">{{ error_message }}</p>
         {% endif %}
-        <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('list') }}">
+        <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('duzenle2_submit') }}">
+            <input type="hidden" name="TCNo" value="{{ person.TCNo }}">            
             <div class="form-group">
                 <label for="father_name">Baba Adı:</label>
                 <input type="text" id="father_name" name="father_name" required value="{{ person_data.father_name }}">
