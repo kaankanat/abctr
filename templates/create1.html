@@ -5,6 +5,14 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+        </div>
+       
+        <h5>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</h5>
+       
+    </header>
     <div class="container">
         <h1>ÖN BİLGİLER</h1>
         {% if error_message %}
@@ -74,5 +82,8 @@
         });
     };
     </script>
+      <footer class="footer">
+        <p>abctronline.com</p>
+    </footer>
 </body>
 </html>

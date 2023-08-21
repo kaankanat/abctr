@@ -7,6 +7,14 @@
 </head>
 
 <body>
+    <header class="header">
+        <div class="logo">
+            <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+        </div>
+       
+        <h5>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</h5>
+       
+    </header>
     <div class="container">
         <h1>KİŞİSEL BİLGİLER</h1>
         {% if error_message %}
@@ -37,6 +45,11 @@
                 <label for="address">İkamet Adresi:</label>
                 <input type="text" id="address" name="address" required value="{{ person_data.address }}">
             </div>
+            
+            <div class="form-group">
+                <label for="institution">Kurumu:</label>
+                <input type="text" id="institution" name="institution" required value="{{ person_data.institution }}">
+            </div>   
         
             <div class="form-group">
                 <label for="graduation_status">Mezuniyet Durumu:</label>
@@ -51,13 +64,8 @@
                     <option value="Doktora" {% if person_data.graduation_status == 'Doktora' %}selected{% endif %}>Doktora</option>
                 </select>
                 <span id="graduation-status-warning" class="error-message" style="color: red; display: none;">Lütfen Mezuniyet Durumu Seçiniz.</span>
-            </div>
-        
-            <div class="form-group">
-                <label for="institution">Kurumu:</label>
-                <input type="text" id="institution" name="institution" required value="{{ person_data.institution }}">
-            </div>                   
-        
+            </div>                
+
             <div class="form-group">
                 <label for="field">Mesleki Alanı:</label>
                 <select id="field" name="field" onchange="updateDals()">
@@ -152,6 +160,9 @@
             const graduationStatusSelect = document.getElementById('graduation_status');
             graduationStatusSelect.addEventListener('change', hideGraduationStatusWarning);
         };
-    </script>          
+    </script>  
+      <footer class="footer">
+        <p>abctronline.com</p>
+    </footer>        
 </body>
 </html>
