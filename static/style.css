@@ -15,7 +15,7 @@ body {
     max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color:#000080;
+    background-color:#02115AE6;
     border-radius: 4px;;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
     color: white;
@@ -32,7 +32,7 @@ body {
 }
 
 .header {
-    background-color: #000080	 ;
+    background-color: #02115AE6	 ;
     color: #fff;
     display: flex;
     justify-content: space-between;
@@ -46,11 +46,43 @@ body {
 }
 
 .footer {
-    background-color: #000080		;
+    background-color:  #02115AE6;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 24px;
     color: #fff;
-    text-align: center;
-    padding: 20px;
-}
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #007bff;
+  }
+
+  .contact-info p {
+    color: #fff;
+    font-size: 14px;
+    margin: 0;
+    padding: 5px 0;
+  }
+  
+  .footer-text {
+    color: #fff;
+    font-size: 14px;
+  }
+
+  
 .flash-messages {
     list-style-type: none;
     padding: 0;
