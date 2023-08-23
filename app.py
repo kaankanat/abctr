@@ -84,6 +84,11 @@ def company_info_form():
 
         success_message = 'İşyeri Bilgileri Başarıyla Kaydedildi.'
         flash(success_message, 'success')
+        people = Person.query.all()
+        for person in people:
+            person.company_info = company_info
+            db.session.commit()
+
         return redirect(url_for('dashboard'))
 
     return render_template('company_info_form.html', error_message=error_message, success_message=success_message)
