@@ -1,6 +1,5 @@
 from werkzeug.security import generate_password_hash
 from models import db, User
-from flask import current_app
 
 def create_users(app):
     users = [
@@ -16,7 +15,3 @@ def create_users(app):
                 new_user = User(username=user_data['username'], password=hashed_password)
                 db.session.add(new_user)
         db.session.commit()
-
-if __name__ == '__main__':
-    from app import app
-    create_users(app)

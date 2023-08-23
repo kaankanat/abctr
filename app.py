@@ -3,9 +3,9 @@ from flask_migrate import Migrate
 from models import db, CompanyInfo, User, Person
 from data import main_to_sub_categories, alans
 from werkzeug.security import check_password_hash
-from userpass import create_users
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
+from userpass import create_users  # Import create_users function
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -32,10 +32,18 @@ def login():
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        if user and check_password_hash(user.password, password):
-            session['user_id'] = user.id
-            return redirect(url_for('company_info_form'))
+        if user:
+            print("User found in the database")
+            if check_password_hash(user.password, password):
+                session['user_id'] = user.id
+                return redirect(url_for('company_info_form'))
+            else:
+                print("Password check failed")
+                print(f"Stored Password Hash: {user.password}")
+                print(f"Input Password Hash: {generate_password_hash(password)}")
+                error_message = 'Yanlış Kullanıcı Adı veya Şifre'
         else:
+            print("User not found in the database")
             error_message = 'Yanlış Kullanıcı Adı veya Şifre'
 
     return render_template('login.html', error_message=error_message)
@@ -262,7 +270,5 @@ def sil(id):
     
     return render_template('delete.html', person=person)
 if __name__ == '__main__':
+    create_users(app)
     app.run(debug=True)
-
-from userpass import create_users
-create_users()
