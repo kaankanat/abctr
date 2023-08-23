@@ -39,7 +39,12 @@ body {
     align-items: center;
     padding: 20px;
     margin-top: 0;
-      
+}
+
+.header p {
+    font-weight: lighter;
+    color: #abaebe;
+    font-size: 14px;
 }
 .logo img {
     max-width: 200px; 
@@ -71,15 +76,21 @@ body {
   }
 
   .contact-info p {
-    color: #fff;
+    color: #abaebe;
     font-size: 14px;
     margin: 0;
-    padding: 5px 0;
+    padding: 10px 0;
   }
   
   .footer-text {
     color: #fff;
     font-size: 14px;
+    font-weight: bold;
+  }
+
+  .footer-text p {
+    color: #abaebe;
+    font-weight: lighter;
   }
 
   
