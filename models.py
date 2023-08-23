@@ -17,6 +17,8 @@ class Person(db.Model):
     field = db.Column(db.String(100))
     dal = db.Column(db.String(100))
     birth_date = db.Column(db.Date)
+    company_info_id = db.Column(db.Integer, db.ForeignKey('company_info.id'))
+    company_info = db.relationship('CompanyInfo', backref='people')
     
 class CompanyInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)

@@ -33,6 +33,18 @@
                     <th>Mesleki Alan</th>
                     <th>Mesleki Dal</th>
                     <th>Doğum Tarihi</th>
+                    <th>Şirket Adı</th>
+                    <th>Şirket Adresi</th>
+                    <th>Şirket Telefonu</th>
+                    <th>Vergi Numarası</th>
+                    <th>SGK Sicil Numarası</th>
+                    <th>SGK'lı Personel Sayısı</th>
+                    <th>Banka Adı</th>
+                    <th>Şube Adı</th>
+                    <th>IBAN Numarası</th>
+                    <th>İşletme Temsilcisinin Adı</th>
+                    <th>İşletme Temsilcisinin TC Numarası</th>
+                    <th>İşletme Temsilcisinin Ünvanı</th>
                     <th>Düzenle</th>
                     <th>Sil</th>
                 </tr>
@@ -51,8 +63,20 @@
                     <td>{{ person.field }}</td>
                     <td>{{ person.dal }}</td>
                     <td>{{ person.birth_date }}</td>
+                    <td>{{ person.company_info.company_name }}</td>
+                    <td>{{ person.company_info.company_address }}</td>
+                    <td>{{ person.company_info.company_phone }}</td>
+                    <td>{{ person.company_info.tax_number }}</td>
+                    <td>{{ person.company_info.sgk_registry_number }}</td>
+                    <td>{{ person.company_info.sgk_employee_count }}</td>
+                    <td>{{ person.company_info.bank_name }}</td>
+                    <td>{{ person.company_info.branch_name }}</td>
+                    <td>{{ person.company_info.iban_number }}</td>
+                    <td>{{ person.company_info.representative_name }}</td>
+                    <td>{{ person.company_info.representative_tc }}</td>
+                    <td>{{ person.company_info.representative_title }}</td>
                     <td><a href="{{ url_for('duzenle1', tcno=person.TCNo) }}" class="edit-link">Düzenle</a></td>
-                    <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td> 
+                    <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td>
                 </tr>
                 {% endfor %}
             </table>
@@ -62,7 +86,6 @@
                 Anasayfaya Geri Dön
             </a>
         </div>
-    </div>
     </div>
 </body>
 </html>
