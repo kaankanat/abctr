@@ -38,12 +38,8 @@ def login():
                 session['user_id'] = user.id
                 return redirect(url_for('company_info_form'))
             else:
-                print("Password check failed")
-                print(f"Stored Password Hash: {user.password}")
-                print(f"Input Password Hash: {generate_password_hash(password)}")
                 error_message = 'Yanlış Kullanıcı Adı veya Şifre'
         else:
-            print("User not found in the database")
             error_message = 'Yanlış Kullanıcı Adı veya Şifre'
 
     return render_template('login.html', error_message=error_message)
