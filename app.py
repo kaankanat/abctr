@@ -5,7 +5,7 @@ from data import main_to_sub_categories, alans
 from werkzeug.security import check_password_hash
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
-from userpass import create_users  # Import create_users function
+from userpass import create_users
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
