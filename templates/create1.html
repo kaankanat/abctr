@@ -1,18 +1,10 @@
 <!DOCTYPE html>
 <html>
-    <head>
-        <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    </head>
-    <body>
-        <header class="header">
-            <div class="logo">
-                <a href="{{ url_for('index') }}" >
-                    <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
-                </a>    
-            </div>
-            <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p>  
-        </header>
+<head>
+    <title>ÖN BİLGİLER</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+</head>
 <body>
     <div class="container">
         <h1>ÖN BİLGİLER</h1>
@@ -50,7 +42,7 @@
             </div>
             <div class="button-container">
                 <input type="submit" value="İleri" class="button primary-button">
-                <a href="{{ url_for('dashboard') }}" class="button cancel-button">Vazgeç</a>
+                <a href="{{ url_for('index') }}" class="button cancel-button">Vazgeç</a>
             </div>
         </form>
     </div>
