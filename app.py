@@ -33,7 +33,6 @@ def login():
         user = User.query.filter_by(username=username).first()
 
         if user:
-            print("User found in the database")
             if check_password_hash(user.password, password):
                 session['user_id'] = user.id
                 return redirect(url_for('company_info_form'))
@@ -42,7 +41,7 @@ def login():
         else:
             error_message = 'Yanlış Kullanıcı Adı veya Şifre'
 
-    return render_template('login.html', error_message=error_message)
+    return render_template('login.html', error_message=error_message, success_message=None)
 
 @app.route('/company_info_form', methods=['GET', 'POST'])
 def company_info_form():
@@ -246,7 +245,10 @@ def duzenle2(tcno):
 @app.route('/')
 def index():
     success_message = request.args.get('success_message')
-    return render_template('login.html', success_message=success_message)
+    if success_message:
+        return render_template('login.html', success_message=success_message)
+    else:
+        return render_template('login.html')
 
 @app.route('/list')
 def list():
