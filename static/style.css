@@ -269,7 +269,7 @@ table.person-table td {
     
 }
 
-.form-group input,select {
+.form-group input,select,button {
     background-color:white;
     width: 80%;
     padding: 0.7rem 1rem;

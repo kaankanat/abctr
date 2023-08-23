@@ -29,19 +29,23 @@
     {% if success_message %}
         <p class="success-message">{{ success_message }}</p>
     {% endif %}
-    <form method="POST" action="{{ url_for('login') }}">
-        <label for="username">Kullanıcı Adı:</label>
-        <input type="text" id="username" name="username" required><br><br>
-        
-        <label for="password">Şifre:</label>
-        <input type="password" id="password" name="password" required><br><br>
-
-        {% if error_message %}
-            <p class="error-message">{{ error_message }}</p>
-        {% endif %}
-        
-        <button type="submit">Login</button>
-    </form>
+    <div class="form-group">
+        <form method="POST" action="{{ url_for('login') }}">
+            <label for="username">Kullanıcı Adı:</label>
+            <input type="text" id="username" name="username" required><br><br>
+            
+            <label for="password">Şifre:</label>
+            <input type="password" id="password" name="password" required><br><br>
+    
+            {% if error_message %}
+                <p class="error-message">{{ error_message }}</p>
+            {% endif %}
+         
+            <button type="submit">Login</button>
+   
+          
+        </form>
+    </div> 
 </div>
 </body>
 <footer class="footer">
