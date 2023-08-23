@@ -53,6 +53,7 @@ body {
 .footer {
     background-color:  #02115AE6;
     padding: 20px 0;
+    z-index: 999;
   }
   
   .footer-content {
