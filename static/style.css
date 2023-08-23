@@ -8,13 +8,92 @@ body {
 }
 
 .container {
-    max-width: 1200px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    max-width: 800px;
     margin: 20px auto;
     padding: 20px;
-    background-color: #fff;
+    background-color:#02115AE6;
+    border-radius: 4px;;
     box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    color: white;
+    
 }
 
+.index{
+    background-color: #fff;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 100vh;
+}
+
+.header {
+    background-color: #02115AE6	 ;
+    color: #fff;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px;
+    margin-top: 0;
+}
+
+.header p {
+    font-weight: lighter;
+    color: #abaebe;
+    font-size: 14px;
+}
+.logo img {
+    max-width: 200px; 
+}
+
+.footer {
+    background-color:  #02115AE6;
+    padding: 20px 0;
+  }
+  
+  .footer-content {
+    max-width: 1200px;
+    margin: 0 auto;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+  }
+  
+  .social-icons a {
+    display: inline-block;
+    margin-right: 15px;
+    font-size: 24px;
+    color: #fff;
+    transition: color 0.3s ease;
+  }
+  
+  .social-icons a:hover {
+    color: #007bff;
+  }
+
+  .contact-info p {
+    color: #abaebe;
+    font-size: 14px;
+    margin: 0;
+    padding: 10px 0;
+  }
+  
+  .footer-text {
+    color: #fff;
+    font-size: 14px;
+    font-weight: bold;
+  }
+
+  .footer-text p {
+    color: #abaebe;
+    font-weight: lighter;
+  }
+
+  
 .flash-messages {
     list-style-type: none;
     padding: 0;
@@ -22,6 +101,10 @@ body {
 }
 
 .flash-messages li {
+    color: #f00;
+}
+
+.error-message {
     color: #f00;
 }
 
@@ -37,6 +120,7 @@ table.person-table {
 
 .person-table-container {
     overflow-x: auto;
+    width: 90%;
 }
 
 table.person-table th,
@@ -173,17 +257,31 @@ table.person-table td {
 }
 
 .form-group {
-    margin-bottom: 15px;
-    display: flex;
-    align-items: center;
+    margin-bottom: 1rem;
+
 }
 
 .form-group label {
-    margin-right: 10px;
+    display: block;
+    font-weight: lighter;
+    margin-bottom: 0.5rem;
+    
 }
 
-.form-group select {
-    margin-right: 10px;
+.form-group input,select {
+    background-color:white;
+    width: 80%;
+    padding: 0.7rem 1rem;
+    border: none;
+    border-radius: 4px;
+    cursor: pointer;
+    transition: background-color 0.3s ease-in-out;
+    font-size: 1rem;
+}
+
+.form-group .error-message {
+    color: red;
+    display: none;
 }
 
 .error {
