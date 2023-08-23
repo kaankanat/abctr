@@ -5,6 +5,8 @@
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
 </head>
 <body>
+    <div class="container">
+        <p class="success-message">{{ success_message }}</p>
     <h1>Giriş</h1>
     {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -31,5 +33,6 @@
         
         <button type="submit">Login</button>
     </form>
+</div>
 </body>
 </html>
