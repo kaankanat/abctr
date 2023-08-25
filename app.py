@@ -35,7 +35,10 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 session['user_id'] = user.id
-                return redirect(url_for('dashboard'))
+                if not user.company_info:
+                    return redirect(url_for('create_company_info'))
+                else:
+                    return redirect(url_for('dashboard'))
             else:
                 error_message = 'Yanlış Kullanıcı Adı veya Şifre'
         else:
@@ -88,6 +91,57 @@ def company_info_form():
         for person in people:
             person.company_info = company_info
             db.session.commit()
+
+        return redirect(url_for('dashboard'))
+
+    return render_template('company_info_form.html', error_message=error_message, success_message=success_message)
+
+@app.route('/create_company_info', methods=['GET', 'POST'])
+def create_company_info():
+    error_message = None
+    success_message = None
+
+    if request.method == 'POST':
+        company_name = request.form['company_name']
+        company_address = request.form['company_address']
+        company_phone = request.form['company_phone']
+        company_email = request.form['company_email']
+        tax_number = request.form['tax_number']
+        sgk_registry_number = request.form['sgk_registry_number']
+        sgk_employee_count = request.form['sgk_employee_count']
+        bank_name = request.form['bank_name']
+        branch_name = request.form['branch_name']
+        iban_number = request.form['iban_number']
+        representative_name = request.form['representative_name']
+        representative_tc = request.form['representative_tc']
+        representative_title = request.form['representative_title']
+
+        company_info = CompanyInfo(
+            company_name=company_name,
+            company_address=company_address,
+            company_phone=company_phone,
+            company_email=company_email,
+            tax_number=tax_number,
+            sgk_registry_number=sgk_registry_number,
+            sgk_employee_count=sgk_employee_count,
+            bank_name=bank_name,
+            branch_name=branch_name,
+            iban_number=iban_number,
+            representative_name=representative_name,
+            representative_tc=representative_tc,
+            representative_title=representative_title
+        )
+
+        db.session.add(company_info)
+        db.session.commit()
+
+        success_message = 'İşyeri Bilgileri Başarıyla Kaydedildi.'
+        flash(success_message, 'success')
+
+        user_id = session['user_id']
+        user = User.query.get(user_id)
+        user.company_info = company_info
+        db.session.commit()
 
         return redirect(url_for('dashboard'))
 
@@ -257,7 +311,14 @@ def index():
 
 @app.route('/list')
 def list():
-    people = Person.query.all()
+    if 'user_id' not in session:
+        flash('Lütfen giriş yapınız.', 'error')
+        return redirect(url_for('login'))
+    
+    user = User.query.get(session['user_id'])
+    company_info = user.company_info
+    people = Person.query.filter_by(company_info=company_info).all()
+
     return render_template('list.html', people=people)
 
 @app.route('/sil/<int:id>', methods=['GET', 'POST'])

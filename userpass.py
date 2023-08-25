@@ -14,4 +14,4 @@ def create_users(app):
                 hashed_password = generate_password_hash(user_data['password'])
                 new_user = User(username=user_data['username'], password=hashed_password)
                 db.session.add(new_user)
-        db.session.commit()
+                db.session.commit()

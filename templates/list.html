@@ -78,8 +78,8 @@
                         <td>{{ person.field }}</td>
                         <td>{{ person.dal }}</td>
                         <td>{{ person.birth_date }}</td>
-                        <td>{{ person.company_info.company_name }}</td>
-                        <td>{{ person.company_info.company_address }}</td>
+                        <td>{{ person.company_info.company_name | default('N/A') }}</td>
+                        <td>{{ person.company_info.company_address | default('N/A') }}</td>
                         <td>{{ person.company_info.company_phone }}</td>
                         <td>{{ person.company_info.tax_number }}</td>
                         <td>{{ person.company_info.sgk_registry_number }}</td>

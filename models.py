@@ -1,4 +1,5 @@
 from flask_sqlalchemy import SQLAlchemy
+from sqlalchemy.orm import relationship
 
 db = SQLAlchemy()
 
@@ -19,6 +20,8 @@ class Person(db.Model):
     birth_date = db.Column(db.Date)
     company_info_id = db.Column(db.Integer, db.ForeignKey('company_info.id'))
     company_info = db.relationship('CompanyInfo', backref='people')
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    user = db.relationship('User', back_populates='person', foreign_keys='[Person.user_id]')
     
 class CompanyInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
@@ -35,8 +38,13 @@ class CompanyInfo(db.Model):
     representative_name = db.Column(db.String(255), nullable=False)
     representative_tc = db.Column(db.String(11), nullable=False)
     representative_title = db.Column(db.String(255), nullable=False)
+    user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
+    users = db.relationship('User', back_populates='company_info', foreign_keys='[User.company_info_id]')
 
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
     password = db.Column(db.String(100), nullable=False)
+    company_info_id = db.Column(db.Integer, db.ForeignKey('company_info.id'))
+    company_info = db.relationship('CompanyInfo', back_populates='users', foreign_keys=[company_info_id])
+    person = db.relationship('Person', back_populates='user', foreign_keys='[Person.user_id]')
