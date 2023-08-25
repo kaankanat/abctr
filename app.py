@@ -35,7 +35,7 @@ def login():
         if user:
             if check_password_hash(user.password, password):
                 session['user_id'] = user.id
-                return redirect(url_for('company_info_form'))
+                return redirect(url_for('dashboard'))
             else:
                 error_message = 'Yanlış Kullanıcı Adı veya Şifre'
         else:
