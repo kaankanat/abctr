@@ -3,89 +3,127 @@
 <head>
     <title>Kişi Listesi</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+
 </head>
 <body>
-    <div class="container">
-        {% with messages = get_flashed_messages() %}
-        {% if messages %}
-        <ul class="flash-messages">
-            {% for message in messages %}
-            <li>{{ message }}</li>
-            {% endfor %}
-        </ul>
-        {% endif %}
-        {% endwith %}
-
+    <header class="header">
+        <div class="logo">
+            <a href="{{ url_for('index') }}" >
+                <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+            </a>    
+        </div>
+        <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p>  
+    </header>
+    <div class="dashboard">
+        <div>
+            {% with messages = get_flashed_messages() %}
+            {% if messages %}
+            <ul class="flash-messages">
+                {% for message in messages %}
+                <li>{{ message }}</li>
+                {% endfor %}
+            </ul>
+            {% endif %}
+            {% endwith %}
+        </div>
         <h1>Kişi Listesi</h1>
         <div class="person-table-container">
             <table class="person-table">
-                <tr>
-                    <th>Adı</th>
-                    <th>Soyadı</th>
-                    <th>TC Kimlik No</th>
-                    <th>Baba Adı</th>
-                    <th>Anne Adı</th>
-                    <th>Doğum Yeri</th>
-                    <th>Telefon Numarası</th>
-                    <th>İkamet Adresi</th>
-                    <th>Mezuniyet Durumu</th>
-                    <th>Kurum Adı</th>
-                    <th>Mesleki Alan</th>
-                    <th>Mesleki Dal</th>
-                    <th>Doğum Tarihi</th>
-                    <th>Şirket Adı</th>
-                    <th>Şirket Adresi</th>
-                    <th>Şirket Telefonu</th>
-                    <th>Vergi Numarası</th>
-                    <th>SGK Sicil Numarası</th>
-                    <th>SGK'lı Personel Sayısı</th>
-                    <th>Banka Adı</th>
-                    <th>Şube Adı</th>
-                    <th>IBAN Numarası</th>
-                    <th>İşletme Temsilcisinin Adı</th>
-                    <th>İşletme Temsilcisinin TC Numarası</th>
-                    <th>İşletme Temsilcisinin Ünvanı</th>
-                    <th>Düzenle</th>
-                    <th>Sil</th>
-                </tr>
-                {% for person in people %}
-                <tr>
-                    <td>{{ person.name }}</td>
-                    <td>{{ person.surname }}</td>
-                    <td>{{ person.TCNo }}</td>
-                    <td>{{ person.father_name }}</td>
-                    <td>{{ person.mother_name }}</td>
-                    <td>{{ person.birthplace }}</td>
-                    <td>{{ person.phone_number }}</td>
-                    <td>{{ person.address }}</td>
-                    <td>{{ person.graduation_status }}</td>
-                    <td>{{ person.institution }}</td>
-                    <td>{{ person.field }}</td>
-                    <td>{{ person.dal }}</td>
-                    <td>{{ person.birth_date }}</td>
-                    <td>{{ person.company_info.company_name }}</td>
-                    <td>{{ person.company_info.company_address }}</td>
-                    <td>{{ person.company_info.company_phone }}</td>
-                    <td>{{ person.company_info.tax_number }}</td>
-                    <td>{{ person.company_info.sgk_registry_number }}</td>
-                    <td>{{ person.company_info.sgk_employee_count }}</td>
-                    <td>{{ person.company_info.bank_name }}</td>
-                    <td>{{ person.company_info.branch_name }}</td>
-                    <td>{{ person.company_info.iban_number }}</td>
-                    <td>{{ person.company_info.representative_name }}</td>
-                    <td>{{ person.company_info.representative_tc }}</td>
-                    <td>{{ person.company_info.representative_title }}</td>
-                    <td><a href="{{ url_for('duzenle1', tcno=person.TCNo) }}" class="edit-link">Düzenle</a></td>
-                    <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td>
-                </tr>
+                <thead>
+                    <tr>
+                        <th>Adı</th>
+                        <th>Soyadı</th>
+                        <th>TC Kimlik No</th>
+                        <th>Baba Adı</th>
+                        <th>Anne Adı</th>
+                        <th>Doğum Yeri</th>
+                        <th>Telefon Numarası</th>
+                        <th>İkamet Adresi</th>
+                        <th>Mezuniyet Durumu</th>
+                        <th>Kurum Adı</th>
+                        <th>Mesleki Alan</th>
+                        <th>Mesleki Dal</th>
+                        <th>Doğum Tarihi</th>
+                        <th>Şirket Adı</th>
+                        <th>Şirket Adresi</th>
+                        <th>Şirket Telefonu</th>
+                        <th>Vergi Numarası</th>
+                        <th>SGK Sicil Numarası</th>
+                        <th>SGK'lı Personel Sayısı</th>
+                        <th>Banka Adı</th>
+                        <th>Şube Adı</th>
+                        <th>IBAN Numarası</th>
+                        <th>İşletme Temsilcisinin Adı</th>
+                        <th>İşletme Temsilcisinin TC Numarası</th>
+                        <th>İşletme Temsilcisinin Ünvanı</th>
+                        <th>Düzenle</th>
+                        <th>Sil</th>
+                        <th>Yazdır</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for person in people %}
+                    <tr>
+                        <td>{{ person.name }}</td>
+                        <td>{{ person.surname }}</td>
+                        <td>{{ person.TCNo }}</td>
+                        <td>{{ person.father_name }}</td>
+                        <td>{{ person.mother_name }}</td>
+                        <td>{{ person.birthplace }}</td>
+                        <td>{{ person.phone_number }}</td>
+                        <td>{{ person.address }}</td>
+                        <td>{{ person.graduation_status }}</td>
+                        <td>{{ person.institution }}</td>
+                        <td>{{ person.field }}</td>
+                        <td>{{ person.dal }}</td>
+                        <td>{{ person.birth_date }}</td>
+                        <td>{{ person.company_info.company_name }}</td>
+                        <td>{{ person.company_info.company_address }}</td>
+                        <td>{{ person.company_info.company_phone }}</td>
+                        <td>{{ person.company_info.tax_number }}</td>
+                        <td>{{ person.company_info.sgk_registry_number }}</td>
+                        <td>{{ person.company_info.sgk_employee_count }}</td>
+                        <td>{{ person.company_info.bank_name }}</td>
+                        <td>{{ person.company_info.branch_name }}</td>
+                        <td>{{ person.company_info.iban_number }}</td>
+                        <td>{{ person.company_info.representative_name }}</td>
+                        <td>{{ person.company_info.representative_tc }}</td>
+                        <td>{{ person.company_info.representative_title }}</td>
+                        <td><a href="{{ url_for('duzenle1', tcno=person.TCNo) }}" class="edit-link">Düzenle</a></td>
+                        <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td>
+                        <td><a href="{{ url_for('sil', id=person.id) }}" class="print-link">Yazdır</a></td>
+                    </tr>
+                </tbody> 
                 {% endfor %}
             </table>
         </div>
-        <div class="button-container">
+        <div>
             <a href="{{ url_for('dashboard') }}" class="anasayfa-link">
-                Anasayfaya Geri Dön
+               <button class="button-container-list"> Anasayfaya Geri Dön</button>
             </a>
         </div>
     </div>
 </body>
+<footer class="footer">
+    <div class="footer-content">
+        <div class="footer-text">
+            &copy; ABCtr DANIŞMANLIK
+            <p>Eğitim, Sağlık, E-Ticaret, Reklam ve SGK Teşvik Danışmanlığı</p>
+            <p>(Tüm Hakları Saklıdır.)</p>
+          </div>
+          <div class="contact-info">
+            <p><i class="fas fa-envelope"></i> abctr.online@gmail.com</p>
+            <p><i class="fas fa-phone"></i> +90 505 765 15 45</p>
+          </div>
+      <div class="social-icons">
+        <a href="https://www.facebook.com/taylankapucu" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://twitter.com/taylankapucu" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://www.instagram.com/abctr.online/" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://www.youtube.com/channel/UCtDsCYOfrLd8DoZbH8-ie5Q" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+        <a href="https://www.linkedin.com/in/taylankapucu/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+      </div>
+    
+    </div>
+  </footer>
 </html>
