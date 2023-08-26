@@ -242,6 +242,7 @@ def sayfa2():
             field=field,
             dal=dal,
             birth_date=datetime.strptime(person_data['birth_date'], '%a, %d %b %Y %H:%M:%S %Z').date(),
+            user=User.query.get(session['user_id'])
             )
 
         db.session.add(person)
@@ -336,9 +337,8 @@ def list():
         return redirect(url_for('login'))
     
     user = User.query.get(session['user_id'])
-    company_info = user.company_info
-    people = Person.query.filter_by(company_info=company_info).all()
-
+    people = Person.query.filter_by(user=user).all()
+    
     return render_template('list.html', people=people)
 
 @app.route('/sil/<int:id>', methods=['GET', 'POST'])
