@@ -72,6 +72,9 @@ def company_info_form():
     success_message = None
 
     if request.method == 'POST':
+        user_id = session.get('user_id')
+        user = User.query.get(user_id)
+
         company_name = request.form['company_name']
         company_address = request.form['company_address']
         company_phone = request.form['company_phone']
@@ -102,66 +105,17 @@ def company_info_form():
             representative_title=representative_title
         )
 
+        user.company_info = company_info
         db.session.add(company_info)
         db.session.commit()
 
         success_message = 'İşyeri Bilgileri Başarıyla Kaydedildi.'
         flash(success_message, 'success')
-        people = Person.query.all()
+        
+        people = Person.query.filter_by(user=user).all()
         for person in people:
             person.company_info = company_info
             db.session.commit()
-
-        return redirect(url_for('dashboard'))
-
-    return render_template('company_info_form.html', error_message=error_message, success_message=success_message)
-
-@app.route('/create_company_info', methods=['GET', 'POST'])
-def create_company_info():
-    error_message = None
-    success_message = None
-
-    if request.method == 'POST':
-        company_name = request.form['company_name']
-        company_address = request.form['company_address']
-        company_phone = request.form['company_phone']
-        company_email = request.form['company_email']
-        tax_number = request.form['tax_number']
-        sgk_registry_number = request.form['sgk_registry_number']
-        sgk_employee_count = request.form['sgk_employee_count']
-        bank_name = request.form['bank_name']
-        branch_name = request.form['branch_name']
-        iban_number = request.form['iban_number']
-        representative_name = request.form['representative_name']
-        representative_tc = request.form['representative_tc']
-        representative_title = request.form['representative_title']
-
-        company_info = CompanyInfo(
-            company_name=company_name,
-            company_address=company_address,
-            company_phone=company_phone,
-            company_email=company_email,
-            tax_number=tax_number,
-            sgk_registry_number=sgk_registry_number,
-            sgk_employee_count=sgk_employee_count,
-            bank_name=bank_name,
-            branch_name=branch_name,
-            iban_number=iban_number,
-            representative_name=representative_name,
-            representative_tc=representative_tc,
-            representative_title=representative_title
-        )
-
-        db.session.add(company_info)
-        db.session.commit()
-
-        success_message = 'İşyeri Bilgileri Başarıyla Kaydedildi.'
-        flash(success_message, 'success')
-
-        user_id = session['user_id']
-        user = User.query.get(user_id)
-        user.company_info = company_info
-        db.session.commit()
 
         return redirect(url_for('dashboard'))
 
