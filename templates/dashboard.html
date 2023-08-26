@@ -15,6 +15,10 @@
         </header>
 <body>
     <div class="dashboard">
+        <div class="user-info">
+            <p>Hoşgeldiniz, {{ user.username }}</p>
+            <a href="{{ url_for('logout') }}">Logout</a>
+        </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
         <ul class="flash-messages">

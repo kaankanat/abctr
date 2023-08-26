@@ -29,6 +29,7 @@ def upgrade():
     with op.batch_alter_table('user', schema=None) as batch_op:
         batch_op.add_column(sa.Column('company_info_id', sa.Integer(), nullable=True))
         batch_op.create_foreign_key('fk_user_company_info', 'company_info', ['company_info_id'], ['id'])
+        batch_op.add_column(sa.Column('is_logged_in', sa.Boolean(), default=False))
 
     # ### end Alembic commands ###
 

@@ -21,30 +21,50 @@ def get_main_to_sub_categories():
 
 @app.route('/dashboard')
 def dashboard():
-    return render_template('dashboard.html')
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.get(user_id)
+        return render_template('dashboard.html', user=user)
+    else:
+        return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
     error_message = None
+    success_message = None
 
     if request.method == 'POST':
         username = request.form['username']
         password = request.form['password']
         user = User.query.filter_by(username=username).first()
 
-        if user:
-            if check_password_hash(user.password, password):
-                session['user_id'] = user.id
-                if not user.company_info:
-                    return redirect(url_for('create_company_info'))
-                else:
-                    return redirect(url_for('dashboard'))
-            else:
-                error_message = 'Yanlış Kullanıcı Adı veya Şifre'
+        if user and check_password_hash(user.password, password):
+            User.query.update({'is_logged_in': False})
+            
+            user.is_logged_in = True
+            db.session.commit()
+
+            session['user_id'] = user.id
+            return redirect(url_for('dashboard'))
+            
         else:
             error_message = 'Yanlış Kullanıcı Adı veya Şifre'
+    else:
+        error_message = None
 
-    return render_template('login.html', error_message=error_message, success_message=None)
+    return render_template('login.html', error_message=error_message, success_message=success_message)
+
+@app.route('/logout')
+def logout():
+    if 'user_id' in session:
+        user = User.query.get(session['user_id'])
+        if user:
+            user.is_logged_in = False
+            db.session.commit()
+
+    flash('Çıkış yapıldı.', 'success')
+    session.pop('user_id', None)
+    return redirect(url_for('login'))
 
 @app.route('/company_info_form', methods=['GET', 'POST'])
 def company_info_form():

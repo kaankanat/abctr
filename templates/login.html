@@ -15,21 +15,20 @@
 </header>
 <body>
     <div class="container">
-        <p class="success-message">{{ success_message }}</p>
-    <h1>Giriş</h1>
-    {% with messages = get_flashed_messages() %}
-        {% if messages %}
-            <ul class="messages">
-                {% for message in messages %}
-                    <li>{{ message }}</li>
-                {% endfor %}
-            </ul>
+        <h1>Giriş</h1>
+        {% with messages = get_flashed_messages() %}
+            {% if messages %}
+                <ul class="messages">
+                    {% for message in messages %}
+                        <li>{{ message }}</li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endwith %}
+        {% if success_message is not none %}
+            <p class="success-message">{{ success_message }}</p>
         {% endif %}
-    {% endwith %}
-    {% if success_message %}
-        <p class="success-message">{{ success_message }}</p>
-    {% endif %}
-    <div class="form-group">
+        <div class="form-group">
         <form method="POST" action="{{ url_for('login') }}">
             <label for="username">Kullanıcı Adı:</label>
             <input type="text" id="username" name="username" required><br><br>
@@ -40,10 +39,8 @@
             {% if error_message %}
                 <p class="error-message">{{ error_message }}</p>
             {% endif %}
-         
+
             <button type="submit">Login</button>
-   
-          
         </form>
     </div> 
 </div>
