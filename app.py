@@ -169,6 +169,8 @@ def sayfa2():
         institution = request.form['institution']
         field = request.form['field']
         dal = request.form['dal']
+        logged_in_user = User.query.get(session['user_id'])
+        company_info = logged_in_user.company_info
 
         if not graduation_status:
             error_message = 'Mezuniyet Durumu seçilmiş olmalıdır.'
@@ -196,8 +198,9 @@ def sayfa2():
             field=field,
             dal=dal,
             birth_date=datetime.strptime(person_data['birth_date'], '%a, %d %b %Y %H:%M:%S %Z').date(),
-            user=User.query.get(session['user_id'])
-            )
+            user=logged_in_user,
+            company_info=company_info
+        )
 
         db.session.add(person)
         db.session.commit()
