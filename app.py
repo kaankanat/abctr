@@ -362,7 +362,10 @@ def print_person(person_id):
     os.remove(file_path)
 
     response = Response(data, content_type='application/msword')
-    response.headers['Content-Disposition'] = f'attachment; filename={person.name}_{person.surname}_filled.docx'
+    file_name = f'{person.name}_{person.surname}_filled.docx'
+    file_name_encoded = file_name.encode('utf-8')
+    file_name_decoded = file_name_encoded.decode('latin-1')
+    response.headers['Content-Disposition'] = f'attachment; filename="{file_name_decoded}"'
 
     return response
 
