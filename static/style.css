@@ -205,6 +205,36 @@ table.person-table th {
     margin-right: 10px;
 }
 
+.primary-button {
+    background-color: #007bff;
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    margin-right: 10px;
+    font-size: 14px;
+}
+
+.primary-button:hover {
+    background-color: #0056b3;
+}
+
+.custom-primary-button {
+    background-color: #007bff;
+    border: none;
+    color: black;
+    padding: 10px 15px;
+    border-radius: 4px;
+    cursor: pointer;
+    font-size: 14px;
+}
+
+.custom-primary-button:focus,
+.custom-primary-button:hover {
+    background-color: #0056b3;
+}
+
 .cancel-button {
     background-color: #f44336;
     border: none;
@@ -216,6 +246,11 @@ table.person-table th {
     text-decoration: none;
     font-size: 14px;
 }
+
+.cancel-button:hover {
+    background-color: #d32f2f;
+}
+
 .logout{
     background-color: #fff;
     border-radius: 3px;
@@ -347,7 +382,9 @@ table.person-table td {
 .button-container {
     text-align: center;
     margin-top: 30px; 
-    position: relative; 
+    position: relative;
+    display: flex;
+    align-items: center;
 }
 
 .caption {
