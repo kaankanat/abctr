@@ -31,6 +31,7 @@ body {
     background-color: #fff;
 }
 
+
 .header {
     background-color: #02115AE6	 ;
     color: #fff;
@@ -162,7 +163,8 @@ table.person-table th {
 }
 
 .edit-link:hover,
-.delete-link:hover {
+.delete-link:hover,
+.print-link:hover {
     text-decoration: underline;
     background-color: #f0f0f0;
     box-shadow: 0 2px 6px rgba(0, 0, 0, 0.15);
@@ -274,6 +276,10 @@ table.person-table th {
     position: relative;
     bottom: 6rem;
     left: 8rem;
+}
+
+.button-caption a:hover img {
+    filter: brightness(1.2);
 }
 
 .form-group {
