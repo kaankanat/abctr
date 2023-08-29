@@ -4,6 +4,8 @@
     <title>Giriş</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
 </head>
 <header class="header">
     <div class="logo">
@@ -15,7 +17,7 @@
 </header>
 <body>
     <div class="container">
-        <h1>Giriş</h1>
+        <h1>Giriş Yap</h1>
         {% with messages = get_flashed_messages() %}
             {% if messages %}
                 <ul class="messages">
@@ -37,7 +39,7 @@
                     <p class="error-message">{{ error_message }}</p>
                 {% endif %}
 
-                <button type="submit">Login</button>
+                <button type="submit">Giriş Yap</button>
             </form>
         </div> 
     </div>

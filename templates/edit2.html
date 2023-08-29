@@ -4,9 +4,22 @@
 <head>
     <title>KİŞİSEL BİLGİLER</title>
     <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+    <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
 </head>
 
 <body>
+    <header class="header">
+        <div class="logo">
+            <a href="{{ url_for('index') }}" >
+                <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
+            </a>    
+        </div>
+        <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p> 
+      <div class="logout">
+        <a href="{{ url_for('logout') }}">Çıkış Yap<i class="fa-solid fa-right-from-bracket"></i></a> <br>       
+      </div>  
+    </header>
     <div class="container">
         <h1>KİŞİSEL BİLGİLER</h1>
         {% if error_message %}
@@ -154,6 +167,27 @@
             graduationStatusSelect.addEventListener('change', hideGraduationStatusWarning);
         };
     </script>
+    <footer class="footer">
+        <div class="footer-content">
+            <div class="footer-text">
+                &copy; ABCtr DANIŞMANLIK
+                <p>Eğitim, Sağlık, E-Ticaret, Reklam ve SGK Teşvik Danışmanlığı</p>
+                <p>(Tüm Hakları Saklıdır.)</p>
+              </div>
+              <div class="contact-info">
+                <p><i class="fas fa-envelope"></i> abctr.online@gmail.com</p>
+                <p><i class="fas fa-phone"></i> +90 505 765 15 45</p>
+              </div>
+          <div class="social-icons">
+            <a href="https://www.facebook.com/taylankapucu" target="_blank"><i class="fab fa-facebook"></i></a>
+            <a href="https://twitter.com/taylankapucu" target="_blank"><i class="fab fa-twitter"></i></a>
+            <a href="https://www.instagram.com/abctr.online/" target="_blank"><i class="fab fa-instagram"></i></a>
+            <a href="https://www.youtube.com/channel/UCtDsCYOfrLd8DoZbH8-ie5Q" target="_blank"><i class="fa-brands fa-youtube"></i></a>
+            <a href="https://www.linkedin.com/in/taylankapucu/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
+          </div>
+        
+        </div>
+      </footer>
 </body>
 
 </html>

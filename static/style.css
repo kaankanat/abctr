@@ -1,7 +1,7 @@
 /* style.css */
 
 body {
-    font-family: Arial, sans-serif;
+    font-family: 'Montserrat', sans-serif;
     margin: 0;
     padding: 0;
     background-color: #f0f0f0;
@@ -215,6 +215,30 @@ table.person-table th {
     margin-right: 10px;
     text-decoration: none;
     font-size: 14px;
+}
+.logout{
+    background-color: #fff;
+    border-radius: 3px;
+    border: 10px solid;
+}
+.user-info{
+    font-size: 36px;
+    font-weight: 700;
+    color: #e0311e
+
+}
+
+.logout a{
+    color: #02115AE6;
+    font-size: 14px;
+    text-decoration: none;
+    font-weight: bold;
+}
+
+.button-caption img {
+    position: relative;
+    bottom: 6rem;
+    left: 8rem;
 }
 
 .form-group {

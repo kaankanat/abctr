@@ -3,6 +3,8 @@
     <head>
         <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
         <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css" integrity="sha512-z3gLpd7yknf1YoNbCzqRKc4qyor8gaKU1qmn+CShxbuBusANI9QpRohGBreCFkKxLhei6S9CQXFEbbKuqLg0DA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+        <link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@700&display=swap" rel="stylesheet">
+
     </head>
     <body>
         <header class="header">
@@ -11,13 +13,15 @@
                     <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
                 </a>    
             </div>
-            <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p>  
+            <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p> 
+          <div class="logout">
+            <a href="{{ url_for('logout') }}">Çıkış Yap<i class="fa-solid fa-right-from-bracket"></i></a> <br>       
+          </div>  
         </header>
 <body>
     <div class="dashboard">
         <div class="user-info">
-            <p>Hoşgeldiniz, {{ user.username }}</p>
-            <a href="{{ url_for('logout') }}">Logout</a>
+            <p>HOŞGELDİNİZ, {{ user.username }}</p>
         </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
@@ -28,21 +32,23 @@
         </ul>
         {% endif %}
         {% endwith %}
-
+        <img src="{{ url_for('static', filename='motto.jpeg') }}" alt="Slogan" class="motto-image">
         <div class="button-caption">
-            <img src="{{ url_for('static', filename='motto.jpeg') }}" alt="Slogan" class="motto-image">
+          <hr>
             <div class="button-caption">
                 <p class="caption">MESLEKİ EĞİTİM İÇİN BAŞVUR</p>
                 <a href="{{ url_for('sayfa1') }}" class="button-link">
                     <img src="{{ url_for('static', filename='button.jpeg') }}" alt="Create" class="button-image">
                 </a>
             </div>
+            <hr>
             <div class="button-caption">
-                <p class="caption">VERİTABANINI GÖRÜNTÜLE</p>
+                <p class="caption">KAYITLI PERSONEL LİSTESİNİ GÖRÜNTÜLE</p>
                 <a href="{{ url_for('list') }}" class="button-link">
                     <img src="{{ url_for('static', filename='dısplayed.jpeg') }}" alt="View Database" class="button-image">
                 </a>                
             </div>
+            <hr>
             <div class="button-caption">
                 <p class="caption">İŞYERİ BİLGİLERİNİ DÜZENLE</p>
                 <a href="{{ url_for('company_info_form') }}" class="button-link">
