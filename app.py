@@ -234,19 +234,17 @@ def duzenle1(tcno):
             error_message = 'Bu TC Kimlik Numarası zaten başka bir kişi tarafından kullanılıyor.'
             return render_template('edit1.html', error_message=error_message, person_data=person_data)
 
-        person_data.update({
+        session['edit1_data'] = {
             'name': name,
             'surname': surname,
             'TCNo': TCNo,
             'birth_date': birth_date,
-        })
-
-        session['edit1_data'] = person_data
+        }
         session.modified = True
 
-        return redirect(url_for('duzenle2', tcno=TCNo))
-    
-    return render_template('edit1.html', error_message=error_message, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
+        return redirect(url_for('duzenle2', tcno=tcno))
+
+    return render_template('edit1.html', error_message=error_message, person_data=person_data)
 
 @app.route('/duzenle2/<string:tcno>', methods=['GET', 'POST'])
 def duzenle2(tcno):
@@ -276,10 +274,11 @@ def duzenle2(tcno):
         except IntegrityError as e:
             db.session.rollback()
             flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
-
+        
+        session.pop('edit1_data', None)
         return redirect(url_for('list'))
-
-    return render_template('edit2.html', person=person)
+    person_data = session.get('edit1_data', {})
+    return render_template('edit2.html', person=person, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
 
 @app.route('/')
 def index():
