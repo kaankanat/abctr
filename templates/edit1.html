@@ -24,7 +24,7 @@
         {% if error_message %}
             <p class="error-message">{{ error_message }}</p>
         {% endif %}
-        <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('duzenle2', tcno=person_data.TCNo) }}">
+        <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('duzenle2', tcno=person_data.TCNo) if person_data.TCNo else '' }}" id="editForm">
             <input type="hidden" name="TCNo" value="{{ person_data.TCNo }}">
             <div class="form-group">
                 <label for="name">Adı:</label>
@@ -69,10 +69,6 @@
             } else {
                 warningMsg.style.display = 'none';
             }
-    
-            const form = document.getElementById('editForm');
-            form.submit();
-    
             return true;
         }
     
@@ -82,7 +78,7 @@
                 checkTCLength(this);
             });
         };
-    </script>  
+    </script>    
     <footer class="footer">
         <div class="footer-content">
             <div class="footer-text">
