@@ -216,7 +216,6 @@ def sayfa2():
 def duzenle1(tcno):
     error_message = ""
     person_data = session.get('edit1_data', {})
-
     person = Person.query.filter_by(TCNo=tcno).first()
     if request.method == 'POST':
         name = request.form['name']
@@ -274,9 +273,10 @@ def duzenle2(tcno):
         except IntegrityError as e:
             db.session.rollback()
             flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
-        
+
         session.pop('edit1_data', None)
         return redirect(url_for('list'))
+
     person_data = session.get('edit1_data', {})
     return render_template('edit2.html', person=person, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
 
