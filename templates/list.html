@@ -94,7 +94,7 @@
                         <td>{{ person.company_info.representative_title }}</td>
                         <td><a href="{{ url_for('duzenle1', tcno=person.TCNo) }}" class="edit-link">Düzenle</a></td>
                         <td><a href="{{ url_for('sil', id=person.id) }}" class="delete-link">Sil</a></td>
-                        <td><a href="{{ url_for('sil', id=person.id) }}" class="print-link">Yazdır</a></td>
+                        <td><a href="{{ url_for('print_person', person_id=person.id) }}" class="print-link">Yazdır</a></td>
                     </tr>
                 </tbody> 
                 {% endfor %}

@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
 from flask_migrate import Migrate
 from models import db, CompanyInfo, User, Person
 from data import main_to_sub_categories, alans
@@ -6,6 +6,8 @@ from werkzeug.security import check_password_hash
 from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from userpass import create_users
+import os
+from docxtpl import DocxTemplate
 
 app = Flask(__name__)
 app.config['SECRET_KEY'] = 'your_secret_key_here'
@@ -310,6 +312,63 @@ def sil(id):
         return redirect(url_for('list'))
     
     return render_template('delete.html', person=person)
+
+def generate_filled_word_document(person, temp_directory):
+    template = DocxTemplate('static/1.docx')
+
+    context = {
+        'Adı_Soyadı': f"{person.name} {person.surname}",
+        'TC_Kimlik_No': person.TCNo,
+        'Baba_Adı': person.father_name,
+        'Anne_Adı': person.mother_name,
+        'Doğum_Yeri_ve_Tarihi': f"{person.birthplace} - {person.birth_date.strftime('%d.%m.%Y')}",
+        'Telefonu': person.phone_number,
+        'Adresi': person.address,
+        'Mezuniyet_Durumu': person.graduation_status,
+        'Okuduğu_Kurum': person.institution,
+        'Alanı_Dalı': f"{person.field} / {person.dal}",
+        'Şirket_Adı': person.company_info.company_name,
+        'Şirket_Adresi': person.company_info.company_address,
+        'Şirket_Telefonu': person.company_info.company_phone,
+        'Şirket_E-Posta': person.company_info.company_email,
+        'Vergi_Numarası': person.company_info.tax_number,
+        'SGK_Sicil_Numarası': person.company_info.sgk_registry_number,
+        'SGK_Çalışan_Sayısı': person.company_info.sgk_employee_count,
+        'Banka_Adı': person.company_info.bank_name,
+        'Şube_Adı': person.company_info.branch_name,
+        'IBAN_Numarası': person.company_info.iban_number,
+        'Yetkili_Adı_Soyadı': person.company_info.representative_name,
+        'Yetkili_T.C._Kimlik_No': person.company_info.representative_tc,
+        'Yetkili_Ünvanı': person.company_info.representative_title
+    }
+
+    template.render(context)
+    temp_file_path = os.path.join(temp_directory, f'{person.name}_{person.surname}_filled.docx')
+    template.save(temp_file_path)
+
+    return temp_file_path
+
+@app.route('/print/<int:person_id>')
+def print_person(person_id):
+    person = Person.query.get(person_id)
+    if not person:
+        return "Person not found", 404
+
+    temp_directory = 'tmp'
+    file_path = generate_filled_word_document(person, temp_directory)
+    with open(file_path, 'rb') as file:
+        data = file.read()
+
+    os.remove(file_path)
+
+    response = Response(data, content_type='application/msword')
+    file_name = f'{person.name}_{person.surname}_filled.docx'
+    file_name_encoded = file_name.encode('utf-8')
+    file_name_decoded = file_name_encoded.decode('latin-1')
+    response.headers['Content-Disposition'] = f'attachment; filename="{file_name_decoded}"'
+
+    return response
+
 if __name__ == '__main__':
     create_users(app)
     app.run(debug=True)
