@@ -51,6 +51,14 @@
                 <label for="photo">Fotoğraf Ekle:</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
             </div>
+            <div class="form-group">
+                <label for="usta_ogretici_name">Usta Öğreticinin Adı Soyadı:</label>
+                <input type="text" id="usta_ogretici_name" name="usta_ogretici_name" required>
+            </div>
+            <div class="form-group">
+                <label for="usta_ogretici_tc">Usta Öğreticinin TC Nosu:</label>
+                <input type="text" id="usta_ogretici_tc" name="usta_ogretici_tc" required maxlength="11">
+            </div>
             <div class="button-container">
                 <input type="submit" value="İleri" class="button primary-button">
                 <a href="{{ url_for('list') }}" class="button cancel-button">Vazgeç</a>

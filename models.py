@@ -22,6 +22,8 @@ class Person(db.Model):
     company_info = db.relationship('CompanyInfo', backref='people')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='person', foreign_keys='[Person.user_id]')
+    usta_ogretici_name = db.Column(db.String(100))
+    usta_ogretici_tc = db.Column(db.String(11))
     
 class CompanyInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)
