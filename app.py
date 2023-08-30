@@ -342,7 +342,7 @@ def generate_filled_word_document(person, temp_directory):
         'Şirket_Adı': person.company_info.company_name,
         'Şirket_Adresi': person.company_info.company_address,
         'Şirket_Telefonu': person.company_info.company_phone,
-        'Şirket_E-Posta': person.company_info.company_email,
+        'Şirket_EPosta': person.company_info.company_email,
         'Vergi_Numarası': person.company_info.tax_number,
         'SGK_Sicil_Numarası': person.company_info.sgk_registry_number,
         'SGK_Çalışan_Sayısı': person.company_info.sgk_employee_count,
@@ -350,8 +350,12 @@ def generate_filled_word_document(person, temp_directory):
         'Şube_Adı': person.company_info.branch_name,
         'IBAN_Numarası': person.company_info.iban_number,
         'Yetkili_Adı_Soyadı': person.company_info.representative_name,
-        'Yetkili_T.C._Kimlik_No': person.company_info.representative_tc,
-        'Yetkili_Ünvanı': person.company_info.representative_title
+        'Yetkili_TC_Kimlik_No': person.company_info.representative_tc,
+        'Yetkili_Ünvanı': person.company_info.representative_title,
+        'Okul_Adı': person.school_name,   
+        'Usta_Öğretici_Adı': person.instructor_name,  
+        'Usta_Öğretici_Tc': person.instructor_tc,     
+        'Usta_Öğretici_No': person.instructor_phone  
     }
 
     template.render(context)
