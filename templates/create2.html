@@ -48,11 +48,9 @@
                 <input type="text" id="address" name="address" required value="{{ person_data.address }}">
             </div>
             <div class="form-group">
-                <label for="institution">Kurumu:</label>
+                <label for="institution">Firma Adı:</label>
                 <input type="text" id="institution" name="institution" required value="{{ person_data.institution }}">
             </div>                   
-        
-        
             <div class="form-group">
                 <label for="graduation_status">Mezuniyet Durumu:</label>
                 <select id="graduation_status" name="graduation_status">
@@ -77,7 +75,6 @@
                 </select>
                 <span id="field-warning" class="error-message" style="color: red; display: none;">Lütfen Mesleki Alanı Seçiniz.</span>
             </div>
-        
             <div class="form-group">
                 <label for="dal">Mesleki Dalı:</label>
                 <div id="dal-container">
@@ -87,7 +84,28 @@
                 </div>
                 <span id="field-warning" class="error-message" style="color: red; display: none;">Lütfen Mesleki Alanı Seçiniz.</span>
             </div>
-        
+            <div class="form-group">
+                <label for="school_name">Okul Adı:</label>
+                <select id="school_name" name="school_name" required>
+                    <option value="" selected disabled>Okul Adı Seçiniz</option>
+                    <option value="Osman Düşüngel Mesleki Eğitim Merkezi" {% if person_data.school_name == 'Osman Düşüngel Mesleki Eğitim Merkezi' %}selected{% endif %}>Osman Düşüngel Mesleki Eğitim Merkezi</option>
+                    <option value="Hürriyet Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Hürriyet Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Hürriyet Mesleki ve Teknik Anadolu Lisesi</option>
+                    <option value="Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi</option>
+                    <option value="Mimarsinan Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Mimarsinan Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Mimarsinan Mesleki ve Teknik Anadolu Lisesi</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label for="usta_ogretici_name">Usta Öğreticinin Adı:</label>
+                <input type="text" id="usta_ogretici_name" name="usta_ogretici_name" required>
+            </div>
+            <div class="form-group">
+                <label for="usta_ogretici_tc">Usta Öğreticinin TC Nosu:</label>
+                <input type="text" id="usta_ogretici_tc" name="usta_ogretici_tc" required maxlength="11">
+            </div>
+            <div class="form-group">
+                <label for="usta_ogretici_telefon">Usta Öğreticinin Telefon Numarası:</label>
+                <input type="text" id="usta_ogretici_telefon" name="usta_ogretici_telefon" required pattern="0[0-9]{0,3} [0-9]{0,3} [0-9]{0,2} [0-9]{0,2}" placeholder="0___ ___ __ __" maxlength="14" oninput="formatPhoneNumber(event)">
+            </div>       
             <div class="button-container">
                 <input type="submit" value="Kaydet" class="button primary-button">
                 <a href="{{ url_for('index') }}" class="button cancel-button">Vazgeç</a>

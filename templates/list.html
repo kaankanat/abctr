@@ -44,6 +44,10 @@
                         <th>İkamet Adresi</th>
                         <th>Mezuniyet Durumu</th>
                         <th>Kurum Adı</th>
+                        <th>Okul Adı</th>
+                        <th>Usta Öğretici Adı</th>
+                        <th>Usta Öğretici TC</th>
+                        <th>Usta Öğretici Telefon</th>
                         <th>Mesleki Alan</th>
                         <th>Mesleki Dal</th>
                         <th>Doğum Tarihi</th>
@@ -80,6 +84,10 @@
                         <td>{{ person.field }}</td>
                         <td>{{ person.dal }}</td>
                         <td>{{ person.birth_date }}</td>
+                        <td>{{ person.school_name }}</td>
+                        <td>{{ person.instructor_name }}</td>
+                        <td>{{ person.instructor_tc }}</td>
+                        <td>{{ person.instructor_phone }}</td>
                         <td>{{ person.company_info.company_name | default('N/A') }}</td>
                         <td>{{ person.company_info.company_address | default('N/A') }}</td>
                         <td>{{ person.company_info.company_phone }}</td>

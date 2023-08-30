@@ -171,6 +171,11 @@ def sayfa2():
         institution = request.form['institution']
         field = request.form['field']
         dal = request.form['dal']
+        school_name = request.form['school_name']  
+        instructor_name = request.form['usta_ogretici_name']  
+        instructor_tc = request.form['usta_ogretici_tc']  
+        instructor_phone = request.form['usta_ogretici_telefon']  
+        
         logged_in_user = User.query.get(session['user_id'])
         company_info = logged_in_user.company_info
 
@@ -200,6 +205,10 @@ def sayfa2():
             field=field,
             dal=dal,
             birth_date=datetime.strptime(person_data['birth_date'], '%a, %d %b %Y %H:%M:%S %Z').date(),
+            school_name=school_name, 
+            instructor_name=instructor_name,  
+            instructor_tc=instructor_tc, 
+            instructor_phone=instructor_phone,  
             user=logged_in_user,
             company_info=company_info
         )
@@ -265,6 +274,10 @@ def duzenle2(tcno):
         person.institution = request.form.get('institution', person.institution)
         person.field = request.form.get('field', person.field)
         person.dal = request.form.get('dal', person.dal)
+        person.school_name = request.form.get('school_name', person.school_name) 
+        person.instructor_name = request.form.get('usta_ogretici_name', person.instructor_name)  
+        person.instructor_tc = request.form.get('usta_ogretici_tc', person.instructor_tc)  
+        person.instructor_phone = request.form.get('usta_ogretici_telefon', person.instructor_phone) 
 
         try:
             if 'birth_date' in request.form:
