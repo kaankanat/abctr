@@ -17,15 +17,11 @@ class Person(db.Model):
     institution = db.Column(db.String(100))
     field = db.Column(db.String(100))
     dal = db.Column(db.String(100))
-    school_name = db.Column(db.String(100))
     birth_date = db.Column(db.Date)
     company_info_id = db.Column(db.Integer, db.ForeignKey('company_info.id'))
     company_info = db.relationship('CompanyInfo', backref='people')
     user_id = db.Column(db.Integer, db.ForeignKey('user.id'))
     user = db.relationship('User', back_populates='person', foreign_keys='[Person.user_id]')
-    usta_ogretici_name = db.Column(db.String(100))
-    usta_ogretici_tc = db.Column(db.String(11))
-    usta_ogretici_telefon = db.Column(db.String(20))
     
 class CompanyInfo(db.Model):
     id = db.Column(db.Integer, primary_key=True)

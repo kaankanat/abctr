@@ -51,16 +51,8 @@
                 <label for="institution">Kurumu:</label>
                 <input type="text" id="institution" name="institution" required value="{{ person_data.institution }}">
             </div>                   
-            <div class="form-group">
-                <label for="school_name">Okul Adı:</label>
-                <select id="school_name" name="school_name" required>
-                    <option value="" selected disabled>Okul Adı Seçiniz</option>
-                    <option value="Osman Düşüngel Mesleki Eğitim Merkezi" {% if person_data.school_name == 'Osman Düşüngel Mesleki Eğitim Merkezi' %}selected{% endif %}>Osman Düşüngel Mesleki Eğitim Merkezi</option>
-                    <option value="Hürriyet Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Hürriyet Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Hürriyet Mesleki ve Teknik Anadolu Lisesi</option>
-                    <option value="Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Mehmet Akif Ersoy Mesleki ve Teknik Anadolu Lisesi</option>
-                    <option value="Mimarsinan Mesleki ve Teknik Anadolu Lisesi" {% if person_data.school_name == 'Mimarsinan Mesleki ve Teknik Anadolu Lisesi' %}selected{% endif %}>Mimarsinan Mesleki ve Teknik Anadolu Lisesi</option>
-                </select>
-            </div>
+        
+        
             <div class="form-group">
                 <label for="graduation_status">Mezuniyet Durumu:</label>
                 <select id="graduation_status" name="graduation_status">

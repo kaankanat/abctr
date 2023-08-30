@@ -44,7 +44,7 @@
 
             <div class="form-group">
                 <label for="birth_date">Doğum Tarihi (Gün/Ay/Yıl):</label>
-                <input type="date" id="birth_date" name="birth_date" required value="{{ person_data.birth_date }}">
+                <input type="date" id="birth_date" name="birth_date" required value="{{ person_data.birth_date | strftime('%Y-%m-%d') }}">
             </div>                     
 
             <div class="form-group">
@@ -58,6 +58,10 @@
             <div class="form-group">
                 <label for="usta_ogretici_tc">Usta Öğreticinin TC Nosu:</label>
                 <input type="text" id="usta_ogretici_tc" name="usta_ogretici_tc" required maxlength="11">
+            </div>
+            <div class="form-group">
+                <label for="usta_ogretici_telefon">Usta Öğreticinin Telefon Numarası:</label>
+                <input type="text" id="usta_ogretici_telefon" name="usta_ogretici_telefon" required pattern="0[0-9]{0,3} [0-9]{0,3} [0-9]{0,2} [0-9]{0,2}" placeholder="0___ ___ __ __" maxlength="14" oninput="formatPhoneNumber(event)">
             </div>
             <div class="button-container">
                 <input type="submit" value="İleri" class="button primary-button">
@@ -86,6 +90,23 @@
                 checkTCLength(this);
             });
         };
+        function formatPhoneNumber(event) {
+    const input = event.target;
+    const value = input.value.replace(/\D/g, '');
+
+    let formattedValue = '';
+    for (let i = 0; i < value.length; i++) {
+        if (i === 0) {
+            formattedValue += '0';
+        } else if (i === 4 || i === 7 || i === 9) {
+            formattedValue += ' ' + value[i];
+        } else {
+            formattedValue += value[i];
+        }
+    }
+
+    input.value = formattedValue;
+}
     </script>    
     <footer class="footer">
         <div class="footer-content">

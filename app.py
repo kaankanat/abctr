@@ -144,18 +144,11 @@ def sayfa1():
             error_message = 'Girdiğiniz TC Numarası sistemde zaten kayıtlı.'
             return render_template('create1.html', error_message=error_message, person_data=person_data)
         
-        usta_ogretici_name = request.form['usta_ogretici_name']
-        usta_ogretici_tc = request.form['usta_ogretici_tc']
-        usta_ogretici_telefon = request.form['usta_ogretici_telefon']
-        
         person_data.update({
             'name': name,
             'surname': surname,
             'TCNo': TCNo,
             'birth_date': birth_date,
-            'usta_ogretici_name': usta_ogretici_name,
-            'usta_ogretici_tc': usta_ogretici_tc,
-            'usta_ogretici_telefon': usta_ogretici_telefon,
         })
 
         session['create1_data'] = person_data
@@ -164,7 +157,6 @@ def sayfa1():
         return redirect(url_for('sayfa2'))
 
     return render_template('create1.html', error_message=error_message, person_data=person_data)
-
 @app.route('/sayfa2', methods=['GET', 'POST'])
 def sayfa2():
     error_message = None
@@ -179,7 +171,6 @@ def sayfa2():
         institution = request.form['institution']
         field = request.form['field']
         dal = request.form['dal']
-        school_name = request.form['school_name']
         logged_in_user = User.query.get(session['user_id'])
         company_info = logged_in_user.company_info
 
@@ -208,13 +199,9 @@ def sayfa2():
             institution=institution,
             field=field,
             dal=dal,
-            birth_date=datetime.strptime(person_data['birth_date'], '%Y-%m-%d').date(),
+            birth_date=datetime.strptime(person_data['birth_date'], '%a, %d %b %Y %H:%M:%S %Z').date(),
             user=logged_in_user,
-            company_info=company_info,
-            usta_ogretici_name=person_data['usta_ogretici_name'],
-            usta_ogretici_tc=person_data['usta_ogretici_tc'],
-            usta_ogretici_telefon=person_data['usta_ogretici_telefon'],
-            school_name=school_name
+            company_info=company_info
         )
 
         db.session.add(person)
@@ -229,8 +216,8 @@ def sayfa2():
 def duzenle1(tcno):
     error_message = ""
     person_data = session.get('edit1_data', {})
+
     person = Person.query.filter_by(TCNo=tcno).first()
-    
     if request.method == 'POST':
         name = request.form['name']
         surname = request.form['surname']
@@ -242,10 +229,6 @@ def duzenle1(tcno):
             error_message = 'Yanlış doğum tarihi formatı!'
             return render_template('edit1.html', error_message=error_message, person_data=person_data)
 
-        usta_ogretici_name = request.form['usta_ogretici_name']
-        usta_ogretici_tc = request.form['usta_ogretici_tc']
-        usta_ogretici_telefon = request.form['usta_ogretici_telefon']
-
         existing_person = Person.query.filter(Person.TCNo == TCNo).first()
         if existing_person and existing_person.id != person.id:
             error_message = 'Bu TC Kimlik Numarası zaten başka bir kişi tarafından kullanılıyor.'
@@ -256,9 +239,6 @@ def duzenle1(tcno):
             'surname': surname,
             'TCNo': TCNo,
             'birth_date': birth_date,
-            'usta_ogretici_name': usta_ogretici_name,
-            'usta_ogretici_tc': usta_ogretici_tc,
-            'usta_ogretici_telefon': usta_ogretici_telefon,
         }
         session.modified = True
 
@@ -285,10 +265,6 @@ def duzenle2(tcno):
         person.institution = request.form.get('institution', person.institution)
         person.field = request.form.get('field', person.field)
         person.dal = request.form.get('dal', person.dal)
-        person.usta_ogretici_name = request.form.get('usta_ogretici_name', person.usta_ogretici_name)
-        person.usta_ogretici_tc = request.form.get('usta_ogretici_tc', person.usta_ogretici_tc)
-        person.usta_ogretici_telefon = request.form.get('usta_ogretici_telefon', person.usta_ogretici_telefon)
-        person.school_name = request.form.get('school_name', person.school_name)
 
         try:
             if 'birth_date' in request.form:
@@ -298,10 +274,9 @@ def duzenle2(tcno):
         except IntegrityError as e:
             db.session.rollback()
             flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
-
+        
         session.pop('edit1_data', None)
         return redirect(url_for('list'))
-
     person_data = session.get('edit1_data', {})
     return render_template('edit2.html', person=person, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
 
