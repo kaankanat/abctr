@@ -48,7 +48,8 @@ class CompanyInfo(db.Model):
 class User(db.Model):
     id = db.Column(db.Integer, primary_key=True)
     username = db.Column(db.String(100), unique=True, nullable=False)
-    password = db.Column(db.String(100), nullable=False)
+    password = db.Column(db.String(100), nullable=False)   
+    company_name = db.Column(db.String(120), nullable=False)
     company_info_id = db.Column(db.Integer, db.ForeignKey('company_info.id'))
     company_info = db.relationship('CompanyInfo', back_populates='users', foreign_keys=[company_info_id])
     person = db.relationship('Person', back_populates='user', foreign_keys='[Person.user_id]')

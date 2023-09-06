@@ -47,6 +47,7 @@ def login():
             db.session.commit()
 
             session['user_id'] = user.id
+            session['company_name'] = user.company_name
             return redirect(url_for('dashboard'))
             
         else:

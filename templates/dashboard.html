@@ -21,7 +21,7 @@
 <body>
     <div class="dashboard">
         <div class="user-info">
-            <p>HOŞGELDİNİZ, {{ user.username }}</p>
+            <p>HOŞGELDİNİZ, {{ user.company_name }}</p>
         </div>
         {% with messages = get_flashed_messages() %}
         {% if messages %}
