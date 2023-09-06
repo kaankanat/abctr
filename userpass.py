@@ -3,6 +3,7 @@ from models import db, User
 
 def create_users(app):
     users = [
+        {'company_name': 'Admin', 'username': 'admin', 'password': 'admin'},
         {'company_name': 'Alufem', 'username': 'alufem', 'password': 'alufem2023'},
         {'company_name': 'Bildi Metal', 'username': 'bildimetal', 'password': 'bildimetal2023'},
         {'company_name': 'Denka Metal', 'username': 'denkametal', 'password': 'denkametal2023'},
