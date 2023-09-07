@@ -17,7 +17,9 @@
     </header>
     <div class="dashboard">
         {% if people %}
-        <div>
+        <div class="user-info">
+            <p>Admin olarak giriş yapıldı.</p>
+        </div>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
             <ul class="flash-messages">
@@ -27,7 +29,6 @@
             </ul>
             {% endif %}
             {% endwith %}
-        </div>
         <h1>Kişi Listesi</h1>
         <div class="person-table-container">
             <table class="person-table">
