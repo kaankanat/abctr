@@ -116,8 +116,8 @@
             </div>       
             <div class="button-container">
                 <input type="submit" value="Kaydet" class="button primary-button">
-                <a href="{{ url_for('list') }}" class="button cancel-button">Vazgeç</a>
-            </div>
+                <a href="{% if user and user.role == 'admin' %}{{ url_for('admin_dashboard') }}{% else %}{{ url_for('list') }}{% endif %}" class="button cancel-button">Vazgeç</a>
+            </div>                   
         </form>
     </div>
     <script>

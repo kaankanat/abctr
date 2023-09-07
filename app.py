@@ -263,6 +263,11 @@ def sayfa2():
 def duzenle1(tcno):
     error_message = ""
     person_data = session.get('edit1_data', {})
+    
+    user_id = session.get('user_id')
+    user = None
+    if user_id:
+        user = User.query.get(user_id)
 
     person = Person.query.filter_by(TCNo=tcno).first()
     if request.method == 'POST':
@@ -274,13 +279,14 @@ def duzenle1(tcno):
             birth_date = datetime.strptime(birth_date_str, '%Y-%m-%d').date()
         except ValueError:
             error_message = 'Yanlış doğum tarihi formatı!'
-            return render_template('edit1.html', error_message=error_message, person_data=person_data)
+            return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user)
 
         existing_person = Person.query.filter(Person.TCNo == TCNo).first()
         if existing_person and existing_person.id != person.id:
             error_message = 'Bu TC Kimlik Numarası zaten başka bir kişi tarafından kullanılıyor.'
-            return render_template('edit1.html', error_message=error_message, person_data=person_data)
+            return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user)
 
+        session['user_id'] = user_id
         session['edit1_data'] = {
             'name': name,
             'surname': surname,
@@ -291,7 +297,7 @@ def duzenle1(tcno):
 
         return redirect(url_for('duzenle2', tcno=tcno))
 
-    return render_template('edit1.html', error_message=error_message, person_data=person_data)
+    return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user)
 
 @app.route('/duzenle2/<string:tcno>', methods=['GET', 'POST'])
 def duzenle2(tcno):
@@ -300,6 +306,10 @@ def duzenle2(tcno):
     if not person:
         flash('Kişi bulunamadı.', 'error')
         return redirect(url_for('list'))
+
+    user_id = session.get('user_id')
+    person_data = session.get('edit1_data', {})
+    user = User.query.get(user_id)
 
     if request.method == 'POST':
         tcno = request.form['TCNo']
@@ -324,12 +334,14 @@ def duzenle2(tcno):
             flash('Kişi Başarıyla Düzenlendi.', 'success')
         except IntegrityError as e:
             db.session.rollback()
-            flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')
-        
+            flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')      
         session.pop('edit1_data', None)
-        return redirect(url_for('list'))
-    person_data = session.get('edit1_data', {})
-    return render_template('edit2.html', person=person, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories)
+        if user and user.role == 'admin':
+            return redirect(url_for('admin_dashboard'))
+        else:
+            return redirect(url_for('list'))
+
+    return render_template('edit2.html', person=person, person_data=person_data, alans=alans, main_to_sub_categories=main_to_sub_categories, user=user)
 
 @app.route('/')
 def index():
@@ -353,15 +365,21 @@ def list():
 @app.route('/sil/<int:id>', methods=['GET', 'POST'])
 def sil(id):
     person = Person.query.get(id)
-    if request.method == 'POST':
-        confirm = request.form['confirm']
-        if confirm == 'yes':
-            db.session.delete(person)
-            db.session.commit()
-            flash('Kişi başarıyla silindi.', 'success')
-        return redirect(url_for('list'))
-    
-    return render_template('delete.html', person=person)
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.get(user_id)
+        if request.method == 'POST':
+            confirm = request.form['confirm']
+            if confirm == 'yes':
+                db.session.delete(person)
+                db.session.commit()
+                flash('Kişi başarıyla silindi.', 'success')
+            if user.role == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('list'))
+        return render_template('delete.html', person=person)
+    return redirect(url_for('list'))
 
 def generate_filled_word_document(person, temp_directory):
     template = DocxTemplate('static/1.docx')

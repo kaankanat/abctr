@@ -53,8 +53,12 @@
             </div>
             <div class="button-container">
                 <input type="submit" value="İleri" class="button primary-button">
+                {% if user.role == 'admin' %}
+                <a href="{{ url_for('admin_dashboard') }}" class="button cancel-button">Vazgeç</a>
+                {% else %}
                 <a href="{{ url_for('list') }}" class="button cancel-button">Vazgeç</a>
-            </div>                 
+                {% endif %}
+            </div>                            
         </form>
     </div>
     <script>
