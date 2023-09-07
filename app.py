@@ -287,17 +287,16 @@ def duzenle1(tcno):
             return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user)
 
         session['user_id'] = user_id
-        session['edit1_data'] = {
+        person_data = {
             'name': name,
             'surname': surname,
             'TCNo': TCNo,
-            'birth_date': birth_date,
+            'birth_date': birth_date.strftime('%Y-%m-%d'),
         }
+        session['edit1_data'] = person_data 
         session.modified = True
-
         return redirect(url_for('duzenle2', tcno=tcno))
-
-    return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user)
+    return render_template('edit1.html', error_message=error_message, person_data=person_data, user=user, tcno=tcno)
 
 @app.route('/duzenle2/<string:tcno>', methods=['GET', 'POST'])
 def duzenle2(tcno):
@@ -313,6 +312,10 @@ def duzenle2(tcno):
 
     if request.method == 'POST':
         tcno = request.form['TCNo']
+        person.name = person_data['name']
+        person.surname = person_data['surname']
+        person.TCNo = tcno
+        person.birth_date = datetime.strptime(person_data['birth_date'], '%Y-%m-%d').date()
         person.father_name = request.form.get('father_name', person.father_name)
         person.mother_name = request.form.get('mother_name', person.mother_name)
         person.birthplace = request.form.get('birthplace', person.birthplace)
@@ -335,6 +338,7 @@ def duzenle2(tcno):
         except IntegrityError as e:
             db.session.rollback()
             flash('Bir hata oluştu. Lütfen tekrar deneyiniz.', 'error')      
+
         session.pop('edit1_data', None)
         if user and user.role == 'admin':
             return redirect(url_for('admin_dashboard'))

@@ -25,28 +25,27 @@
             <p class="error-message">{{ error_message }}</p>
         {% endif %}
         <form method="POST" onsubmit="return validateForm()" enctype="multipart/form-data" action="{{ url_for('duzenle2', tcno=person_data.TCNo) if person_data.TCNo else '' }}" id="editForm">
-            <input type="hidden" name="TCNo" value="{{ person_data.TCNo }}">
             <div class="form-group">
                 <label for="name">Adı:</label>
                 <input type="text" id="name" name="name" required value="{{ person_data.name }}">
             </div>            
-            
+        
             <div class="form-group">
                 <label for="surname">Soyadı:</label>
                 <input type="text" id="surname" name="surname" required value="{{ person_data.surname }}">
             </div>            
-            
+        
             <div class="form-group">
                 <label for="TCNo">TC Kimlik Numarası:</label>
-                <input type="text" id="TCNo" name="TCNo" required maxlength="11" oninput="checkTCLength(this)">
-                <span id="warning" style="color: red; display: none;">TC Kimlik Numarası 11 rakamdan oluşmalıdır. Lütfen girdiğiniz TC Kimlik Numarasını kontrol ediniz.</span>
-            </div>
-
+                <input type="text" name="TCNo" id="TCNo" value="{{ tcno }}" readonly>
+                <input type="hidden" name="tcno" value="{{ person_data.TCNo }}">
+            </div>            
+        
             <div class="form-group">
                 <label for="birth_date">Doğum Tarihi (Gün/Ay/Yıl):</label>
                 <input type="date" id="birth_date" name="birth_date" required value="{{ birth_date_formatted }}">
             </div>                     
-
+        
             <div class="form-group">
                 <label for="photo">Fotoğraf Ekle:</label>
                 <input type="file" id="photo" name="photo" accept="image/*">
@@ -59,14 +58,13 @@
                 <a href="{{ url_for('list') }}" class="button cancel-button">Vazgeç</a>
                 {% endif %}
             </div>                            
-        </form>
+        </form>               
     </div>
     <script>
-        function validateForm() {
+        function validateForm() {   
             const warningMsg = document.getElementById('warning');
             const tcInput = document.getElementById('TCNo');
             const tcLength = tcInput.value.length;
-    
             if (tcLength !== 11) {
                 warningMsg.style.display = 'inline';
                 return false;
@@ -75,7 +73,7 @@
             }
             return true;
         }
-    
+  
         window.onload = function () {
             const tcInput = document.getElementById('TCNo');
             tcInput.addEventListener('input', function () {
