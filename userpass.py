@@ -3,7 +3,7 @@ from models import db, User
 
 def create_users(app):
     users = [
-        {'company_name': 'Admin', 'username': 'admin', 'password': 'admin'},
+        {'company_name': 'Admin', 'username': 'admin', 'password': 'admin', 'role': 'admin'},
         {'company_name': 'Alufem', 'username': 'alufem', 'password': 'alufem2023'},
         {'company_name': 'Bildi Metal', 'username': 'bildimetal', 'password': 'bildimetal2023'},
         {'company_name': 'Denka Metal', 'username': 'denkametal', 'password': 'denkametal2023'},
@@ -117,6 +117,12 @@ def create_users(app):
             existing_user = User.query.filter_by(username=user_data['username']).first()
             if not existing_user:
                 hashed_password = generate_password_hash(user_data['password'])
-                new_user = User(username=user_data['username'], password=hashed_password,company_name=user_data['company_name'])
+                new_user = User(
+                    username=user_data['username'],
+                    password=hashed_password,
+                    company_name=user_data['company_name']
+                )
+                if 'role' in user_data:
+                    new_user.role = user_data['role']
                 db.session.add(new_user)
                 db.session.commit()

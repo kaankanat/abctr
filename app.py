@@ -26,9 +26,22 @@ def dashboard():
     user_id = session.get('user_id')
     if user_id:
         user = User.query.get(user_id)
-        return render_template('dashboard.html', user=user)
+        if user.role == 'admin':
+            return redirect(url_for('admin_dashboard'))
+        else:
+            return render_template('dashboard.html', user=user)
     else:
         return redirect(url_for('login'))
+
+@app.route('/admin_dashboard')
+def admin_dashboard():
+    user_id = session.get('user_id')
+    if user_id:
+        user = User.query.get(user_id)
+        if user.role == 'admin':
+            people = Person.query.all()
+            return render_template('admin_dashboard.html', people=people, user=user)
+    return redirect(url_for('login'))
 
 @app.route('/login', methods=['GET', 'POST'])
 def login():
@@ -48,7 +61,10 @@ def login():
 
             session['user_id'] = user.id
             session['company_name'] = user.company_name
-            return redirect(url_for('dashboard'))
+            if user.role == 'admin':
+                return redirect(url_for('admin_dashboard'))
+            else:
+                return redirect(url_for('dashboard'))
             
         else:
             error_message = 'Yanlış Kullanıcı Adı veya Şifre'
@@ -216,6 +232,27 @@ def sayfa2():
 
         db.session.add(person)
         db.session.commit()
+        added_person_data = {
+            'name': person.name,
+            'surname': person.surname,
+            'TCNo': person.TCNo,
+            'father_name': father_name,
+            'mother_name': mother_name,
+            'birthplace': birthplace,
+            'phone_number': phone_number,
+            'address': address,
+            'graduation_status': graduation_status,
+            'institution': institution,
+            'field': field,
+            'dal': dal,
+            'birth_date': person.birth_date.strftime('%Y-%m-%d'),
+            'school_name': school_name,
+            'instructor_name': instructor_name,
+            'instructor_tc': instructor_tc,
+            'instructor_phone': instructor_phone,
+        }
+        
+        session['added_person_data'] = added_person_data
 
         flash('Kişi Başarıyla Eklendi.', 'success')
         return redirect(url_for('dashboard'))

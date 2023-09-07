@@ -54,3 +54,4 @@ class User(db.Model):
     company_info = db.relationship('CompanyInfo', back_populates='users', foreign_keys=[company_info_id])
     person = db.relationship('Person', back_populates='user', foreign_keys='[Person.user_id]')
     is_logged_in = db.Column(db.Boolean, default=False)
+    role = db.Column(db.String(20))

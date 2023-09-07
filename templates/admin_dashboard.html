@@ -16,6 +16,7 @@
         <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p>  
     </header>
     <div class="dashboard">
+        {% if people %}
         <div>
             {% with messages = get_flashed_messages() %}
             {% if messages %}
@@ -107,10 +108,11 @@
             </table>
         </div>
         <div>
-            <a href="{{ url_for('dashboard') }}" class="anasayfa-link">
-               <button class="button-container-list"> Anasayfaya Geri Dön</button>
+            <a href="{{ url_for('logout') }}" class="anasayfa-link">
+                <button class="button-container-list">Çıkış Yap</button>
             </a>
-        </div>  
+        </div>        
+        {% endif %}
     </div>
 </body>
 <footer class="footer">
