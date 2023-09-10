@@ -8,7 +8,6 @@ from sqlalchemy.exc import IntegrityError
 from userpass import create_users
 import os
 import openpyxl
-import sqlite3
 from docxtpl import DocxTemplate
 
 app = Flask(__name__)
@@ -462,6 +461,41 @@ def excel_button():
         "İşletme Temsilcisinin Ünvanı"
     ]
     ws.append(headers)
+
+    column_widths = {
+        'A': 15,
+        'B': 15,
+        'C': 15,
+        'D': 15,
+        'E': 15,
+        'F': 15,
+        'G': 15,
+        'H': 15,
+        'I': 15,
+        'J': 15,
+        'K': 15,
+        'L': 15,
+        'M': 15,
+        'N': 15,
+        'O': 15,
+        'P': 15,
+        'Q': 15,
+        'R': 15,
+        'S': 15,
+        'T': 15,
+        'U': 15,
+        'V': 15,
+        'W': 15,
+        'X': 15,
+        'Y': 15,
+        'Z': 15,
+        'AA': 15,
+        'AB': 15,
+        'AC': 15,
+    }
+
+    for col, width in column_widths.items():
+        ws.column_dimensions[col].width = width
 
     people_data = Person.query.all()
 
