@@ -1,4 +1,4 @@
-from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response
+from flask import Flask, render_template, request, redirect, url_for, flash, session, jsonify, Response, send_file
 from flask_migrate import Migrate
 from models import db, CompanyInfo, User, Person
 from data import main_to_sub_categories, alans
@@ -7,6 +7,8 @@ from datetime import datetime
 from sqlalchemy.exc import IntegrityError
 from userpass import create_users
 import os
+import openpyxl
+import sqlite3
 from docxtpl import DocxTemplate
 
 app = Flask(__name__)
@@ -444,6 +446,49 @@ def print_person(person_id):
     response.headers['Content-Disposition'] = f'attachment; filename="{file_name_decoded}"'
 
     return response
+@app.route('/excel_button')
+def excel_button():
+    wb = openpyxl.Workbook()
+    ws = wb.active
+
+    headers = [
+        "Adı", "Soyadı", "TC Kimlik No", "Baba Adı", "Anne Adı", "Doğum Yeri",
+        "Telefon Numarası", "İkamet Adresi", "Mezuniyet Durumu", "Kurum Adı",
+        "Mesleki Alan", "Mesleki Dal", "Doğum Tarihi", "Okul Adı",
+        "Usta Öğretici Adı", "Usta Öğretici TC", "Usta Öğretici Telefon",
+        "Şirket Adı", "Şirket Adresi", "Şirket Telefonu", "Vergi Numarası",
+        "SGK Sicil Numarası", "SGK'lı Personel Sayısı", "Banka Adı", "Şube Adı",
+        "IBAN Numarası", "İşletme Temsilcisinin Adı", "İşletme Temsilcisinin TC Numarası",
+        "İşletme Temsilcisinin Ünvanı"
+    ]
+    ws.append(headers)
+
+    people_data = Person.query.all()
+
+    for person in people_data:
+        ws.append([
+            person.name, person.surname, person.TCNo, person.father_name, person.mother_name,
+            person.birthplace, person.phone_number, person.address, person.graduation_status,
+            person.institution, person.field, person.dal, person.birth_date, person.school_name,
+            person.instructor_name, person.instructor_tc, person.instructor_phone,
+            person.company_info.company_name if person.company_info else 'N/A',
+            person.company_info.company_address if person.company_info else 'N/A',
+            person.company_info.company_phone if person.company_info else 'N/A',
+            person.company_info.tax_number if person.company_info else 'N/A',
+            person.company_info.sgk_registry_number if person.company_info else 'N/A',
+            person.company_info.sgk_employee_count if person.company_info else 'N/A',
+            person.company_info.bank_name if person.company_info else 'N/A',
+            person.company_info.branch_name if person.company_info else 'N/A',
+            person.company_info.iban_number if person.company_info else 'N/A',
+            person.company_info.representative_name if person.company_info else 'N/A',
+            person.company_info.representative_tc if person.company_info else 'N/A',
+            person.company_info.representative_title if person.company_info else 'N/A'
+        ])
+
+    excel_file_path = "temp.xlsx"
+    wb.save(excel_file_path)
+
+    return send_file(excel_file_path, as_attachment=True, download_name="people_data.xlsx")
 
 if __name__ == '__main__':
     create_users(app)

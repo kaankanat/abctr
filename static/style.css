@@ -52,18 +52,23 @@ body {
 }
 
 .footer {
-    background-color:  #02115AE6;
+    background-color: #02115AE6;
     padding: 20px 0;
     z-index: 999;
-  }
-  
-  .footer-content {
+    width: 100%;
+    position: relative;
+    bottom: 0;
+}
+
+.footer-content {
     max-width: 1200px;
     margin: 0 auto;
     display: flex;
     justify-content: space-between;
     align-items: center;
-  }
+    width: 100%;
+    padding: 0 20px;
+}
   
   .social-icons a {
     display: inline-block;
@@ -185,15 +190,29 @@ table.person-table th {
     color: #fff;
 }
 
-.button-container-list {
-    margin-top: 20px;
+.button-container {
     text-align: center;
+    margin-top: 30px;
+    margin-bottom: 20px;
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.button-container-list {
     background-color: #02115AE6;
     color: white;
     border: none;
     border-radius: 4px;
     cursor: pointer;
     width: 150px;
+    margin: 5px;
+    padding: 10px;
+    transition: background-color 0.3s ease;
+}
+
+.button-container-list:hover {
+    background-color: #0451A5;
 }
 
 .button {
@@ -385,18 +404,23 @@ table.person-table td {
     margin-top: 10px; 
 }
 
-.button-container {
-    text-align: center;
-    margin-top: 30px; 
-    position: relative;
-    display: flex;
-    align-items: center;
-}
-
 .caption {
     font-size: 18px;
     font-weight: bold;
     font-family: Arial, sans-serif; 
     color: #0047ab;
     margin-bottom: 20px; 
+}
+
+.green-button {
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.3s ease;
+}
+
+.green-button:hover {
+    background-color: #45a049;
 }

@@ -109,10 +109,14 @@
             </table>
         </div>
         <div>
+        <div class="button-container">
+            <a href="{{ url_for('excel_button') }}" class="excel-button-link">
+                <button class="button-container-list green-button">Veritabanını İndir</button>
+            </a>
             <a href="{{ url_for('logout') }}" class="anasayfa-link">
                 <button class="button-container-list">Çıkış Yap</button>
             </a>
-        </div>        
+        </div>                            
         {% endif %}
     </div>
 </body>
@@ -133,7 +137,7 @@
         <a href="https://www.instagram.com/abctr.online/" target="_blank"><i class="fab fa-instagram"></i></a>
         <a href="https://www.youtube.com/channel/UCtDsCYOfrLd8DoZbH8-ie5Q" target="_blank"><i class="fa-brands fa-youtube"></i></a>
         <a href="https://www.linkedin.com/in/taylankapucu/" target="_blank"><i class="fa-brands fa-linkedin"></i></a>
-      </div>
+      </div>    
     </div>
 </footer>
 </html>
