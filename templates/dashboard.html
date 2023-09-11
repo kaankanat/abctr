@@ -13,7 +13,12 @@
                     <img src="{{ url_for('static', filename='logo.jpeg') }}" alt="logo" >
                 </a>    
             </div>
-            <p>Büyük Başarılar Kazanmak İçin İhtiyacınız Olan Destek!</p> 
+            <div class="motto">
+                <a href="{{ url_for('index') }}" >
+                    <img src="{{ url_for('static', filename='motto.jpeg') }}" alt="motto" >
+                </a>    
+            </div>
+          
           <div class="logout">
             <a href="{{ url_for('logout') }}">Çıkış Yap<i class="fa-solid fa-right-from-bracket"></i></a> <br>       
           </div>  
@@ -32,7 +37,6 @@
         </ul>
         {% endif %}
         {% endwith %}
-        <img src="{{ url_for('static', filename='motto.jpeg') }}" alt="Slogan" class="motto-image">
         <div class="button-caption">
           <hr>
             <div class="button-caption">
