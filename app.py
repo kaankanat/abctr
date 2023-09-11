@@ -8,6 +8,7 @@ from sqlalchemy.exc import IntegrityError
 from userpass import create_users
 import os
 import openpyxl
+from openpyxl.styles import Font, PatternFill
 from docxtpl import DocxTemplate
 
 app = Flask(__name__)
@@ -451,7 +452,7 @@ def excel_button():
     ws = wb.active
 
     headers = [
-        "Adı", "Soyadı", "TC Kimlik No", "Baba Adı", "Anne Adı", "Doğum Yeri",
+        "No", "Adı", "Soyadı", "TC Kimlik No", "Baba Adı", "Anne Adı", "Doğum Yeri",
         "Telefon Numarası", "İkamet Adresi", "Mezuniyet Durumu", "Kurum Adı",
         "Mesleki Alan", "Mesleki Dal", "Doğum Tarihi", "Okul Adı",
         "Usta Öğretici Adı", "Usta Öğretici TC", "Usta Öğretici Telefon",
@@ -460,10 +461,18 @@ def excel_button():
         "IBAN Numarası", "İşletme Temsilcisinin Adı", "İşletme Temsilcisinin TC Numarası",
         "İşletme Temsilcisinin Ünvanı"
     ]
+
     ws.append(headers)
 
+    header_fill = PatternFill(start_color="A6D785", end_color="A6D785", fill_type="solid")
+    header_font = Font(color="FFFFFF")
+
+    for cell in ws[1]:
+        cell.fill = header_fill
+        cell.font = header_font
+
     column_widths = {
-        'A': 15,
+        'A': 5,
         'B': 15,
         'C': 15,
         'D': 15,
@@ -492,6 +501,7 @@ def excel_button():
         'AA': 15,
         'AB': 15,
         'AC': 15,
+        'AD': 15,
     }
 
     for col, width in column_widths.items():
@@ -499,8 +509,9 @@ def excel_button():
 
     people_data = Person.query.all()
 
-    for person in people_data:
+    for idx, person in enumerate(people_data, start=1):
         ws.append([
+            idx,
             person.name, person.surname, person.TCNo, person.father_name, person.mother_name,
             person.birthplace, person.phone_number, person.address, person.graduation_status,
             person.institution, person.field, person.dal, person.birth_date, person.school_name,
@@ -518,6 +529,10 @@ def excel_button():
             person.company_info.representative_tc if person.company_info else 'N/A',
             person.company_info.representative_title if person.company_info else 'N/A'
         ])
+
+    for row in ws.iter_rows(min_row=2, max_row=130, min_col=1, max_col=1):
+        for cell in row:
+            cell.fill = PatternFill(start_color="D3D3D3", end_color="D3D3D3", fill_type="solid")
 
     excel_file_path = "temp.xlsx"
     wb.save(excel_file_path)
