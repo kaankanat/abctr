@@ -73,7 +73,7 @@ def login():
     else:
         error_message = None
 
-    return render_template('login.html', error_message=error_message, success_message=success_message)
+    return render_template('index.html', error_message=error_message, success_message=success_message)
 
 @app.route('/logout')
 def logout():
@@ -353,9 +353,9 @@ def duzenle2(tcno):
 def index():
     success_message = request.args.get('success_message')
     if success_message:
-        return render_template('login.html', success_message=success_message)
+        return render_template('index.html', success_message=success_message)
     else:
-        return render_template('login.html')
+        return render_template('index.html')
 
 @app.route('/list')
 def list():
